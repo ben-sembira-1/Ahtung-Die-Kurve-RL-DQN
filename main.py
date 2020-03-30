@@ -13,4 +13,3 @@ from rl.policy import EpsGreedyQPolicy
 from rl.memory import SequentialMemory
 
 ENVIRONMENT_NAME = 'Achtung-v1.0'
-
