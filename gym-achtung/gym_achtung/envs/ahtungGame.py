@@ -37,7 +37,19 @@ class Player:
         free_coor = [d for d in range(screen_dims[coor]) if min_diatance(all_coor_taken, d)]
 
     def move(self, theta):
-        # TODO: move to here code for moving snake
+    # TODO: move to here code for moving snake
+        for player in self.players:
+            gameBoard[player.x, player.y] = player.id
+            delta_x =  np.cos(theta)
+            delta_y = np.sin(theta)
+            x, y = player.x, player.y
+            xDestination, yDestination = player.x + SPEED*np.cos(theta), player.y + SPEED*np.sin(theta)
+            for i in range(SPEED):
+                x = ceil(x + delta_x)
+                y = ceil(y + delta_y)
+                gameBoard[x,y] = player.id
+                if x > xDestination or y > yDestination:
+                    break
         pass
 
 
@@ -59,17 +71,8 @@ class AhtungGame:
             list_of_players.
 
     def step():
-        for player in self.players:
-            gameBoard[player.x, player.y] = player.id
-            delta_x =  np.cos(theta)
-            delta_y = np.sin(theta)
-            x, y = player.x, player.y
-            xDestination, yDestination = player.x + SPEED*np.cos(theta), player.y + SPEED*np.sin(theta)
-            for i in range(SPEED):
-                x = ceil(x + delta_x)
-                y = ceil(y + delta_y)
-                gameBoard[x,y] = player.id
-                if x > xDestination or y > t
+
+
 
 
     def __str__(self):
