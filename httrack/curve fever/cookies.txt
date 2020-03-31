@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+.curvefever.com	TRUE	/	FALSE	1999999999	__cfduid	db5fc14dd46bbfb6942df42ffe2a3fbc71585515241
+forum.curvefever.com	TRUE	/	FALSE	1999999999	SameSite	Lax
+

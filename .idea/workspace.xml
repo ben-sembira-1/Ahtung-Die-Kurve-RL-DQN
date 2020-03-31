@@ -2,8 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39dc8ee4-e56e-4d98-afd8-57172eafef9d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ScreenCapture.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/backblue.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever.whtt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/backblue.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/cookies.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/fade.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/cf1_preloaderb313.swf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/test-flash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/test-landing.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/play.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/doit.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/winprofile.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-log.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/www.adobe.com/images/shared/download_buttons/get_flash_player.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/curve fever/www.google-analytics.com/analytics.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/fade.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/httrack/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/Scripts/cookieconsent.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/Scripts/test-flash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/Stylesheets/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/Stylesheets/cookieconsent.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/Stylesheets/test-landing.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/play.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen_capture.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshot.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScreenCapture.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +61,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ZiNg7od78YSmMfmZntYH58tyh8" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -83,6 +119,14 @@
       <option name="presentableId" value="Default" />
       <updated>1585318063008</updated>
     </task>
+    <task id="LOCAL-00001" summary="added ScreenCapture.py file">
+      <created>1585560913497</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585560913498</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -99,8 +143,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="standart commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="standart commit" />
+    <MESSAGE value="added ScreenCapture.py file" />
+    <option name="LAST_COMMIT_MESSAGE" value="added ScreenCapture.py file" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
