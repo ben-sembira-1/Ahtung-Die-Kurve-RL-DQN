@@ -12,8 +12,7 @@ class FooEnv(gym.Env):
   def __init__(self):
       number_of_players = 4
       #   number_of_players = ord(input("How many players?"))
-      Game = AchtungGame(number_of_players)
-      operations = [1, -1, 0] # [right, left, nothing]
+      ]
       
   def step(self, action):
     pass
