@@ -2,21 +2,30 @@ import numpy as np
 from pygame.locals import K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_d, K_t, K_y, KEYDOWN, QUIT
 
 
-SCREEN_WIDTH = 1600
-SCREEN_HEIGHT = 1600
+SCREEN_WIDTH = 2000
+SCREEN_HEIGHT = 2000
 MAX_PLAYERS = 3
 SPEED = 1
-REFRESH_SPEED = 5
+REFRESH_SPEED = 2
 DELTA_THETA = 0.005 * np.pi
 MIN_DIST_BETWEEN_SNAKES_START = 40
 MAKE_GAP_PERIOD = 5
-MAKE_GAP_DURATION = 1
+MAKE_GAP_DURATION = 0.6
 GAP_EPSILON = 0.001
+DQN_EPSIOLN = 0.7
+NUMBER_OF_TURNS_TO_LIVE = 50000
+EPISODES = 5000
+
 INPUT = {
-    "go-right" : 1,
+    "go-right" : 2,
     "do-nothing" : 0,
-    "go-left" : -1,
+    "go-left" : 1,
     "game-over" : -2,
+}
+FROM_INPUT_TO_THETA_CHANGE = {
+    INPUT["go-right"] : 1,
+    INPUT["do-nothing"] : 0,
+    INPUT["go-left"] : -1,
 }
 
 CIRCLE_SIZE = 4

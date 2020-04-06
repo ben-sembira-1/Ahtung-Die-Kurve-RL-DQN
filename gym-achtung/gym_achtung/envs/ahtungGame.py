@@ -68,7 +68,7 @@ class Player:
 
         if not check and not self.is_gapping:
             self.previous_points.push((int(self.x), int(self.y)))
-
+#aaa
         temp_x, temp_y = self.x, self.y
         x_got_to_place, y_got_to_place = False, False
         while not x_got_to_place or not y_got_to_place:
@@ -154,9 +154,10 @@ class Player:
 # -------------------------------              ---------------------------------
 # -----------------------------   AchtungGame    ------------------------------
 # -------------------------------              ---------------------------------
-# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------dddddddaaaaaaaaa
 
 class AchtungGame:
+    num_of_turns = 0
 
     def __init__(self, number_of_players):
         self.game_board = np.zeros((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -178,25 +179,31 @@ class AchtungGame:
     #     for i in range(number_of_players):
     #         self.players.append(Player(self.players))
 
+    def get_player_by_id(self, id):
+        for p in self.players:
+            if p.id == id:
+                return p
+        return None
 
     def step(self, actions):
+        AchtungGame.num_of_turns += 1
         # action = [player, theta_change]
         # theta_change = {-1:turn left, 0:dont change, 1:turn right}
 
         game_over = False
         #filters only actions for players that are still alive
         actions = [action for action in actions if action[0] in self.players]
-        for player, theta_change in actions:
-            is_player_still_alive = player.update(self.game_board, theta_change)
+        for player, input in actions:
+            is_player_still_alive = player.update(self.game_board, FROM_INPUT_TO_THETA_CHANGE[input])
             #print(is_player_still_alive)
             if not is_player_still_alive:
                     self.players.remove(player)
         # for p in self.players:
             # print(p)
         if len(self.players) <= 1:
+            print("total steps: " + str(AchtungGame.num_of_turns))
             game_over = True
-        return self.game_board, game_over
-
+        return self.game_board, self.players, game_over
 
     def __str__(self):
         pass
@@ -264,7 +271,7 @@ class AchtungGameRunner:
                 break
 
             self.next_steps = [[player, input[player.id]] for player in self.game.players] # assigns each player the operation it has to do now
-            game_board, game_over = self.game.step(self.next_steps)
+            game_board, players, game_over = self.game.step(self.next_steps)
             if game_over:
                 print("Game is over")
                 break
@@ -306,6 +313,8 @@ class AchtungGameRunner:
 runner = AchtungGameRunner(2)
 runner.run_game()
 
-
-# TODO: show the head of the snakes (pygame.sprite)
-# TODO: make it an envitonment
+# TODO: finish reset in the achtung_env file
+# TODO: check if we need to fix observation_space
+# TODO: finish prepare the code of the dqn and the dqn agent
+####### after that, make it compatible with 2 networks to work together
+# TODO: make the gaps be timed by turns instead of times
