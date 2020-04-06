@@ -1,8 +1,11 @@
 """
 imports:
 """
+# from ..gym-achtung.gym_achtung.envs.consts
+
 import numpy as np
 import gym
+
 
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten
@@ -12,13 +15,13 @@ from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy
 from rl.memory import SequentialMemory
 
-ENV_NAME = 'CartPole-v0'
+ENV_NAME = 'achtung-v0'
 # Get the environment and extract the number of actions available in the Cartpole problem
 env = gym.make(ENV_NAME)
 np.random.seed(123)
 env.seed(123)
 nb_actions = env.action_space.n
-nb_observations = env.observation_space.n
+# nb_observations = env.observation_space.n
 
 model = Sequential()
 model.add(Flatten(input_shape=(1,) + env.observation_space.shape)) #if there is an error consider delete: (1,) +
@@ -28,7 +31,7 @@ model.add(Dense(nb_actions))
 model.add(Activation('linear'))
 print(model.summary())
 
-policy = EpsGreedyQPolicy(eps =DQN_EPSIOLN)
+policy = EpsGreedyQPolicy(eps=0.1)
 memory = SequentialMemory(limit=50000, window_length=1)
 dqn_agent = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=10, target_model_update=1e-2, policy=policy)
 dqn_agent.compile(Adam(lr=1e-3), metrics=['mae'])
@@ -88,8 +91,8 @@ dqn_agent.fit(env, nb_steps=5000, visualize=False, verbose=2)
 #     # train the agent with the experience of the EPISODES
 
 
-def get_action(self, states):
-        if np.random.random() < DQN_EPSIOLN:
-            return np.random.choice(env.action_space)
-        else:
-            return np.argmax(self.predict())
+# def get_action(self, states):
+#         if np.random.random() < DQN_EPSIOLN:
+#             return np.random.choice(env.action_space)
+#         else:
+#             return np.argmax(self.predict())

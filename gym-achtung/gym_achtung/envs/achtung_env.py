@@ -1,13 +1,15 @@
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
-from ahtungGame.py import *
+from ahtungGame import *
 import pygame
 import numpy as np
-import skimage
 
 
-class FooEnv(gym.Env):
+# import skimage
+
+
+class AchtungEnv(gym.Env):
     networks = []
     metadata = {'render.modes': ['human']}
     number_of_players = 1
@@ -17,7 +19,8 @@ class FooEnv(gym.Env):
         self.action_space = spaces.Discrete(3)
         self.scaling = 4
 
-        high = np.array([SCREEN_WIDTH//self.scaling, SCREEN_HEIGHT//self.scaling]) // related to the 2-nd method below
+        high = np.array(
+            [SCREEN_WIDTH // self.scaling, SCREEN_HEIGHT // self.scaling])  # related to the 2-nd method below
         low = np.zeros(2)
         one_player_location_space = spaces.box(low, high, dtype=np.int16)
         # high = np.array([SCREEN_WIDTH//self.scaling, SCREEN_HEIGHT//self.scaling]*FooEnv.number_of_players)

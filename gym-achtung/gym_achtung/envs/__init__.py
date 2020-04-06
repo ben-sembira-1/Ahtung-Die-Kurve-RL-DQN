@@ -1,1 +1,1 @@
-from gym_bubbleshooter.envs.bubbleshooter_env import BubbleShooterEnv
+from gym_achtung.envs.achtund_env import AchtungEnv

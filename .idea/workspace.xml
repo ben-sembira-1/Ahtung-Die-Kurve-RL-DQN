@@ -2,41 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39dc8ee4-e56e-4d98-afd8-57172eafef9d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/httrack/backblue.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever.whtt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/backblue.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/cookies.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/fade.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/cf1_preloaderb313.swf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/test-flash.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/test-landing.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/play.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/doit.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-cache/winprofile.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/hts-log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/www.adobe.com/images/shared/download_buttons/get_flash_player.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/curve fever/www.google-analytics.com/analytics.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/fade.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httrack/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/Scripts/cookieconsent.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/Scripts/test-flash.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/Stylesheets/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/Stylesheets/cookieconsent.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/Stylesheets/test-landing.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/play.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screen_capture.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenshot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung.egg-info/PKG-INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung.egg-info/SOURCES.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung.egg-info/dependency_links.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung.egg-info/requires.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung.egg-info/top_level.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScreenCapture.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gym-achtung/gym_achtung/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/achtung_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/achtung_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gym-achtung/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym-achtung/setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -66,6 +41,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
