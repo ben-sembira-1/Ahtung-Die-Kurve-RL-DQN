@@ -1,10 +1,10 @@
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
-from gym_achtung.envs.ahtungGame import *
+from .ahtungGame import *
 import pygame
 import numpy as np
-from gym_achtung.envs.consts import *
+from .consts import *
 
 # import skimage
 
@@ -74,8 +74,8 @@ class AchtungEnv(gym.Env):
 
     def get_state(self, id=1):
         resized_game_board = self.preprocess_board(self.game.game_board)
-        curr_place = (self.players[id-1].x, self.players[id-1].y)
-        return (curr_place, resized_game_board)
+        # curr_place = (self.players[id-1].x, self.players[id-1].y)
+        return resized_game_board
 
     def preprocess_board(self, board):
         new_board = np.zeros(
@@ -88,18 +88,23 @@ class AchtungEnv(gym.Env):
         for i in range(len(board)):
             for j in range(len(board[0])):
                 if board[i][j]:
-                    new_board[i//self.scaling][j//self.scaling] = 1
+                    new_board[i // self.scaling][j // self.scaling] = -1
+
+        for p in self.players:
+            new_board[p.x][p.y] = 1
+
+        new_board[self.players[0].x][self.players[0].y] = 2
 
         return new_board
 
     def get_reward(self, game_over, players):
-        '''
-        Reward with many pklayers in the game
+        """
+        Reward with many players in the game
         if not game_over and self.players[0] in players:
             return -len(players)
         elif game_over and self.players[0] in players:
             return WIN_REWARD
-            '''
+        """
         if not game_over and self.players[0] in players:
             return 1
         else:
