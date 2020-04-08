@@ -1,10 +1,10 @@
 import numpy as np
 from pygame.locals import K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_d, K_t, K_y, KEYDOWN, QUIT
 
-
 SCREEN_WIDTH = 2000
 SCREEN_HEIGHT = 2000
-MAX_PLAYERS = 3
+MAX_PLAYERS = 1
+SCALING = 4
 SPEED = 1
 REFRESH_SPEED = 2
 DELTA_THETA = 0.005 * np.pi
@@ -35,12 +35,12 @@ FROM_INPUT_TO_THETA_CHANGE = {
 
 CIRCLE_SIZE = 4
 COLORS = {
-    1 : (200, 250, 200),
-    2 : (0, 200, 118),
-    3 : (50, 100, 255)
+    1: (200, 250, 200),
+    2: (0, 200, 118),
+    3: (50, 100, 255)
 }
 
 KEY_ARRAY = [(K_LEFT, K_RIGHT), (K_a, K_d), (K_t, K_y)]
 
-# Heap
-DEFAULT_MAX_HEAP_SIZE = 70
+# Queue
+DEFAULT_MAX_QUEUE_SIZE = 70

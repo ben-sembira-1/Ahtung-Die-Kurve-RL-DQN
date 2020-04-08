@@ -5,7 +5,7 @@ imports:
 
 import numpy as np
 import gym
-
+import gym_achtung
 
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten
@@ -23,22 +23,25 @@ env.seed(123)
 nb_actions = env.action_space.n
 # nb_observations = env.observation_space.n
 
-model = Sequential()
-model.add(Flatten(input_shape=(1,) + env.observation_space.shape)) #if there is an error consider delete: (1,) +
-model.add(Dense(16))
-model.add(Activation('relu'))
-model.add(Dense(nb_actions))
-model.add(Activation('linear'))
+
+input_layer = Input((1,) + env.observation_space.shape))
+# model = Sequential()
+# model.add(Flatten(input_shape=(1,) + env.observation_space.shape)) #if there is an error consider delete: (1,) +
+# model.add(Dense(16))
+# model.add(Activation('relu'))
+# model.add(Dense(nb_actions))
+# model.add(Activation('linear'))
 print(model.summary())
 
 policy = EpsGreedyQPolicy(eps=0.1)
 memory = SequentialMemory(limit=50000, window_length=1)
-dqn_agent = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=10, target_model_update=1e-2, policy=policy)
+dqn_agent = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=10, target_model_update=1e-2,
+                     policy=policy)
 dqn_agent.compile(Adam(lr=1e-3), metrics=['mae'])
 # Okay, now it's time to learn something! We visualize the training here for show, but this slows down training quite a lot.
 dqn_agent.fit(env, nb_steps=5000, visualize=False, verbose=2)
 
-#dqn_agent.test(env, EPISODES, visualize=True)
+# dqn_agent.test(env, EPISODES, visualize=True)
 
 # Iterate the game
 # for e in range(EPISODES):

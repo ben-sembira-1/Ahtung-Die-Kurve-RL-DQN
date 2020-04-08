@@ -1,9 +1,9 @@
 
 # --------- Imports ---------
-from consts import *
+from gym_achtung.envs.consts import *
 import numpy as np
 import time
-from helper import TmpHeap
+from gym_achtung.envs.helper import TmpQueue
 # ------ End Of Imports -----
 
 
@@ -19,7 +19,7 @@ class Player:
         self.id = id
         # 0 for x, 1 for y
         self.x, self.y = self._generate_rnd_coor(other_players)
-        self.previous_points = TmpHeap()
+        self.previous_points = TmpQueue()
         self.previous_points.push((int(self.x), int(self.y)))
         self.theta =  np.random.random() * 2*np.pi
         self.time_last_gap_started = time.time()
@@ -300,8 +300,8 @@ class AchtungGameRunner:
                         self.screen,
                         COLORS[p.id],
                         (int(p.previous_points.top()[0])//4 , int(p.previous_points.top()[1]) // 4),
-                        CIRCLE_SIZE
-                    )
+                CIRCLE_SIZE
+            )
             # pygame.draw.lines(
             #             self.screen,
             #             COLORS[p.id],
@@ -310,8 +310,8 @@ class AchtungGameRunner:
             #             10
             #         )
 
-runner = AchtungGameRunner(2)
-runner.run_game()
+# runner = AchtungGameRunner(2)
+# runner.run_game()
 
 # TODO: finish reset in the achtung_env file
 # TODO: check if we need to fix observation_space

@@ -1,7 +1,7 @@
 from gym import error, spaces, utils
 from gym.utils import seeding
 import numpy as np
-from consts import *
+from gym_achtung.envs.consts import *
 
 
 # -----------------------------------------
