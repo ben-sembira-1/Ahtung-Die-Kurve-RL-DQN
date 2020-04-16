@@ -135,16 +135,10 @@ class Player:
                 continue
             if 0 <= int(x) + i < SCREEN_WIDTH and 0 <= int(y) + i < SCREEN_HEIGHT:
                 if game_board[int(x) + i][int(y)] != 0 and not self.previous_points.contains((int(x) + i, int(y))):
-                    print(1)
                     return False
                 if game_board[int(x)][int(y) + i] != 0 and not self.previous_points.contains((int(x), int(y) + i)):
-                    print(2)
                     return False
         bool = game_board[int(x)][int(y)] == 0 or self.previous_points.contains((int(x), int(y)))
-        if not bool:
-            print(self.previous_points)
-            print(x, y)
-            print(3)
         return bool
 
     def in_bounds(self, x_dest, y_dest):
@@ -200,7 +194,7 @@ class AchtungGame:
                     self.players.remove(player)
         # for p in self.players:
             # print(p)
-        if len(self.players) <= 1:
+        if (len(self.players) <= 0):
             print("total steps: " + str(AchtungGame.num_of_turns))
             game_over = True
         return self.game_board, self.players, game_over
@@ -226,7 +220,7 @@ class AchtungGameRunner:
 
         # ------ pygame ------
         pygame.init()
-        self.screen = pygame.display.set_mode([SCREEN_WIDTH // 4, SCREEN_HEIGHT // 4])
+        self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         self.screen.fill((0, 0, 0))
         # ---- pygame end ----
 
@@ -297,9 +291,9 @@ class AchtungGameRunner:
         for p in self.game.players:
 
             pygame.draw.circle(
-                        self.screen,
-                        COLORS[p.id],
-                        (int(p.previous_points.top()[0])//4 , int(p.previous_points.top()[1]) // 4),
+                self.screen,
+                COLORS[p.id],
+                (int(p.previous_points.top()[0]), int(p.previous_points.top()[1])),
                 CIRCLE_SIZE
             )
             # pygame.draw.lines(
