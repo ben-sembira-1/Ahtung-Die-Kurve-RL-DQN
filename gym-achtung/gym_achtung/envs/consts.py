@@ -4,8 +4,10 @@ from pygame.locals import K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_d, K_t, K_y, KEYDOWN
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 400
 SHOW_BOARD = False
-
+FINAL_SIZE = 20
 RADIUS = 3
+
+
 
 MAX_PLAYERS = 1
 SCALING = 3
