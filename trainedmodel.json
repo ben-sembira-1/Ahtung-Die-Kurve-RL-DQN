@@ -28,8 +28,8 @@
           "dtype": "float32",
           "filters": 64,
           "kernel_size": [
-            3,
-            3
+            5,
+            5
           ],
           "strides": [
             1,
