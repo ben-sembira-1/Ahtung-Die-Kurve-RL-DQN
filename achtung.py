@@ -114,14 +114,14 @@ model.add(Dense(nb_actions, activation = 'relu'))
 
 policy = EpsGreedyQPolicy()
 memory = SequentialMemory(limit=35000, window_length=1)
-dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=20000, target_model_update=1e-2,
+dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=15000, target_model_update=1e-2,
                policy=policy)
 dqn.compile(Adam(lr=0.001), metrics=['mse'])
 # Okay, now it's time to learn something! We visualize the training here for show, but this slows down training quite a lot.
-dqn.fit(env, nb_steps=220000, visualize=False, verbose=2)
+dqn.fit(env, nb_steps=70000, visualize=False, verbose=2)
 
 trained_model = model.to_json()
-with open("trainedmodel.json", "w") as file:
+with open("Saved model json/trainedmodel.json", "w") as file:
     file.write(trained_model)
 file.close()
 
