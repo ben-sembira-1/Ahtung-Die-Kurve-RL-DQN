@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\IDF\סמופ\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\venv"
+VIRTUAL_ENV="D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

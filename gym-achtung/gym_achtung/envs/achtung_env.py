@@ -157,6 +157,7 @@ class AchtungEnv(gym.Env):
         return obs
 
     def preprocess_board(self, board):
+        p = self.players[0]
         new_board = self.cut_board(board)
 
         # self.add_all_players_to_cutted_board(new_board, ZOOM)
@@ -174,9 +175,10 @@ class AchtungEnv(gym.Env):
         #     plt.imshow(new_board)
         #     plt.subplot(223)
         #     plt.imshow(cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE) ))
-        #     plt.subplot(224)
-        #     plt.imshow(cv2.resize(cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE)), (15,15) ))
+        #     # plt.subplot(224)
+        #     # plt.imshow(cv2.resize(cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE)), (15,15) ))
         #     plt.show()
+
         new_board = cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE))
 
         # prints boards side by side
@@ -246,12 +248,19 @@ class AchtungEnv(gym.Env):
         p = self.players[0]
         new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM)  )
         for x in range(SCREEN_WIDTH // ZOOM):
+            x_temp = x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)
+            if 0 > x_temp or x_temp > SCREEN_WIDTH:
+                continue
             for y in range(SCREEN_HEIGHT // ZOOM):
-                if not self.in_board_range(x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x),
-                                           y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)):
+                y_temp = y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)
+                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
-                elif board[x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)][y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)]:
+                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
+
+                if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+
         for other_player in self.players:
             if abs(other_player.x - p.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(other_player.y - p.y) > SCREEN_HEIGHT // (
                     ZOOM * 2):
