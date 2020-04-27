@@ -5,6 +5,7 @@ import time
 from gym_achtung.envs.helper import TmpQueue
 from keras.models import Sequential, model_from_json
 import cv2
+from scipy import ndimage
 
 
 # ------ End Of Imports -----
@@ -17,8 +18,10 @@ class GameStateMaker(object):
         self.game = game
         self.players = [self.game.get_player_by_id(id + 1) for id in range(1)]  # TODO: 1 is for number of players
 
-    def get_state(self, show_board=False):
-        resized_game_board = self.preprocess_board(self.game.game_board)
+    def get_state(self, show_board=False, player=None):
+        if not player:
+            player = self.players[0]
+        resized_game_board = self.preprocess_board(self.game.game_board, player)
         # self.observation_space[:,:,1] = self.observation_space[:,:,0]
         # self.observation_space[:,:,0] = resized_game_board
         obs = resized_game_board
@@ -45,11 +48,57 @@ class GameStateMaker(object):
         # ---------------------------------------
         return np.array([[obs]])
 
-    def preprocess_board(self, board):
-        new_board = self.cut_board(board)
+    def rotate_with_scipy(self, matrix, angle):
+        angle_in_deg = 180 - angle * 360 / (2 * np.pi)
+        to_return = ndimage.rotate(matrix, angle_in_deg, reshape=False)
+
+        for i in range(len(to_return)):
+            for j in range(len(to_return[i])):
+                val = to_return[i][j]
+                if -1.5 < val < -0.5:
+                    to_return[i][j] = -1
+                else:
+                    to_return[i][j] = 0
+        return to_return
+
+    def get_smeared_board_one_val(self, new_board, x, y, size=FINAL_SIZE):
+        jump_size = len(new_board) // size
+        to_return = 0
+        for tmp_x in range(x * jump_size, (x + 1) * jump_size):
+            for tmp_y in range(y * jump_size, (y + 1) * jump_size):
+                if new_board[tmp_x][tmp_y]:
+                    if new_board[x][y] > 0:
+                        return new_board[tmp_x][tmp_y]
+                    to_return = new_board[tmp_x][tmp_y]
+
+        return to_return
+
+    def cut_board3_speedy(self, board, player):
+        """
+        3rd gen - rotate (speedy version)
+        """
+
+        new_board = self.cut_board2(board, player)
+        new_board = self.smear_board_v2(new_board, size=int(FINAL_SIZE * 2))
+        new_board = self.rotate_with_scipy(new_board, player.theta)
+
+        return new_board
+
+    def smear_board_v2(self, new_board, size=FINAL_SIZE):
+        smeared_board = np.zeros((size, size))
+
+        for x in range(size):
+            for y in range(size):
+                smeared_board[x][y] = self.get_smeared_board_one_val(new_board, x, y, size=size)
+
+        return smeared_board
+
+    def preprocess_board(self, board, player):
+        # new_board = self.cut_board(board, player)
+        new_board = self.cut_board3_speedy(board, self.players[0])
 
         # self.add_all_players_to_cutted_board(new_board, ZOOM)
-        # new_board = self.smear_board(new_board)
+        new_board = self.smear_board_v2(new_board)
         # curr_player = self.players[0]
         # new_board = rotate(new_board, curr_player.theta + np.pi) #this function rotates the board to match the player
         # if self.num_of_steps % 100 == 0:
@@ -66,7 +115,7 @@ class GameStateMaker(object):
         #     plt.subplot(224)
         #     plt.imshow(cv2.resize(cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE)), (15,15) ))
         #     plt.show()
-        new_board = cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE))
+        # new_board = cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE))
 
         # prints boards side by side
 
@@ -134,23 +183,77 @@ class GameStateMaker(object):
                     continue
                 new_board[x + i][y + j] = val
 
-    def cut_board(self, board):
-        p = self.players[0]
+    # def cut_board(self, board, player):
+    #     p = player
+    #     new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
+    #     for x in range(SCREEN_WIDTH // ZOOM):
+    #         for y in range(SCREEN_HEIGHT // ZOOM):
+    #             if not self.in_board_range(x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x),
+    #                                        y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)):
+    #                 self.draw_circle_on_matrix(new_board, x, y, -1)
+    #             elif board[x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)][y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)]:
+    #                 self.draw_circle_on_matrix(new_board, x, y, -1)
+    #     for other_player in self.players:
+    #         if abs(other_player.x - p.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(other_player.y - p.y) > SCREEN_HEIGHT // (
+    #                 ZOOM * 2):
+    #             continue
+    #         self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2) + int(other_player.x) - int(p.x),
+    #                                    SCREEN_HEIGHT // (ZOOM * 2) + int(other_player.y) - int(p.y), 1)
+    #     self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
+    #     return new_board
+    def cut_board2(self, board, player):
+        """
+        2nd gen - fences
+        """
+        p = player
         new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
         for x in range(SCREEN_WIDTH // ZOOM):
-            for y in range(SCREEN_HEIGHT // ZOOM):
-                if not self.in_board_range(x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x),
-                                           y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)):
-                    self.draw_circle_on_matrix(new_board, x, y, -1)
-                elif board[x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)][y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)]:
-                    self.draw_circle_on_matrix(new_board, x, y, -1)
-        for other_player in self.players:
-            if abs(other_player.x - p.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(other_player.y - p.y) > SCREEN_HEIGHT // (
-                    ZOOM * 2):
+            x_temp = x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)
+            if 0 > x_temp or x_temp > SCREEN_WIDTH:
                 continue
-            self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2) + int(other_player.x) - int(p.x),
-                                       SCREEN_HEIGHT // (ZOOM * 2) + int(other_player.y) - int(p.y), 1)
-        self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
+            for y in range(SCREEN_HEIGHT // ZOOM):
+                y_temp = y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)
+                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+
+                if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+
+        # for other_player in self.players:
+        #     if abs(other_player.x - p.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(other_player.y - p.y) > SCREEN_HEIGHT // (
+        #             ZOOM * 2):
+        #         continue
+        #     self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2) + int(other_player.x) - int(p.x),
+        #                                SCREEN_HEIGHT // (ZOOM * 2) + int(other_player.y) - int(p.y), 1)
+        # self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
+        return new_board
+
+    def cut_board(self, board, player):
+        p = player
+        new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
+        for x in range(SCREEN_WIDTH // ZOOM):
+            x_temp = x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)
+            if 0 > x_temp or x_temp > SCREEN_WIDTH:
+                continue
+            for y in range(SCREEN_HEIGHT // ZOOM):
+                y_temp = y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)
+                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+
+                if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+
+        # for other_player in self.players:
+        #     if abs(other_player.x - p.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(other_player.y - p.y) > SCREEN_HEIGHT // (
+        #             ZOOM * 2):
+        #         continue
+        #     self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2) + int(other_player.x) - int(p.x),
+        #                                SCREEN_HEIGHT // (ZOOM * 2) + int(other_player.y) - int(p.y), 1)
+        # self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
         return new_board
 
 
@@ -207,6 +310,10 @@ class Player:
 
     def go_on_path(self, game_board, xDestination, yDestination, delta_x, delta_y, check=True):
         # Random gap
+        if self.id == 1:
+            GAP_EPSILON = 0
+        else:
+            GAP_EPSILON = 0.002
         if not self.is_gapping and self.curr_turn - self.turn_last_gap_started > MAKE_GAP_PERIOD:
             if np.random.random() < GAP_EPSILON:
                 self.is_gapping = True
@@ -303,11 +410,11 @@ class Player:
 class AchtungGame:
     num_of_turns = 0
 
-    def __init__(self, number_of_players):
+    def __init__(self, number_of_players=NUMBER_OF_PLAYERS):
         self.game_board = np.zeros((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.players = []
         for i in range(number_of_players):
-            new_player = Player(self.players, i+1)
+            new_player = Player(self.players, i + 1)
             self.players.append(new_player)
         # self.players[0].x = 100
         # self.players[0].y = 50
@@ -316,8 +423,14 @@ class AchtungGame:
         # self.players[0].theta = 0.25 * np.pi
         # self.players[1].theta = 0.75 * np.pi
         self.game_over = False
-        #self.players = np.random.rand(number_of_players,3)
+        # self.players = np.random.rand(number_of_players,3)
 
+    def __str__(self):
+        str = ""
+        for p in self.players:
+            str += p.__str__()
+            str += "\n"
+        return str
 
     # def set_players(number_of_players):
     #     for i in range(number_of_players):
@@ -335,22 +448,22 @@ class AchtungGame:
         # theta_change = {-1:turn left, 0:dont change, 1:turn right}
 
         game_over = False
-        #filters only actions for players that are still alive
+        # filters only actions for players that are still alive
         actions = [action for action in actions if action[0] in self.players]
+
         for player, input in actions:
             is_player_still_alive = player.update(self.game_board, FROM_INPUT_TO_THETA_CHANGE[input])
-            #print(is_player_still_alive)
+
             if not is_player_still_alive:
-                    self.players.remove(player)
-        # for p in self.players:
-            # print(p)
-        if (len(self.players) <= 0):
-            print("total steps: " + str(AchtungGame.num_of_turns))
+                self.players.remove(player)
+
+        # print(self.__str__())
+        threshold = 0 if NUMBER_OF_PLAYERS == 1 else 1
+        if (len(self.players) <= 0 or self.get_player_by_id(1) is None):
             game_over = True
         return self.game_board, self.players, game_over
 
-    def __str__(self):
-        pass
+
 
 # ------------------------------------------------------------------------------
 # --------------------------------            ----------------------------------
@@ -367,7 +480,11 @@ class AchtungGameRunner:
     def __init__(self, num_of_players):
         self.game = AchtungGame(num_of_players)
         self.next_steps = []
+        exp3_json = r'trainedmodel_exp3.json'
+        exp3_weights = r'model_weights_exp3.h5'
 
+        exp_rot = r'C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\trainedmodel_exp_rotate.json'
+        exp_rot_weights = r'C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\model_weights_exp_rotate.h5'
         # ------ pygame ------
         pygame.init()
         self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
@@ -375,52 +492,93 @@ class AchtungGameRunner:
         # ---- pygame end ----
 
         # -------- network --------
-        json_file = open(r'C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\trainedmodelv2.json', 'r')
+        # -------- network --------
+        # v3_model = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\model jasons\trainedmodelv3.json'
+        # v3_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\model weights\model_weightsv3.h5'
+        # v1_model = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\model jasons\trainedmodel.json'
+        # v1_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\model weights\model_weights.h5'
+        # exp4_model = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\trainedmodel_exp4.json'
+        # exp4_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\model_weights_exp4.h5'
+        # exp3_model = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\trainedmodel_exp3.json'
+        # exp3_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\model_weights_exp3.h5'
+        # exp4_ultra_model = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\trainedmodel_exp4_ultra.json'
+        # exp4_ultra_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\model_weights_exp4_ultra.h5'
+        # exp4_nogaps_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\model_weights_exp4_nogaps.h5'
+        # exp4_nogaps_model = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\trainedmodel_exp4_nogaps.json'
+        # fifty_k_model = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\trainedjson\trainedmodel_00_warmup_1000_.json'
+        # fifty_k_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\trainedweights\trainedmodel_weights_00_warmup_1000_.h5'
+
+        json_file = open(exp_rot, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
-        self.net = model_from_json(loaded_model_json)
-        self.net.load_weights(r'C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\model_weightsv2.h5')
+        self.net1 = model_from_json(loaded_model_json)
+        self.net1.load_weights(exp_rot_weights)
         print("Loaded model from disk")
+
+        json_file = open(exp3_json, 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        self.net2 = model_from_json(loaded_model_json)
+        self.net2.load_weights(exp3_weights)
+        print("Loaded model from disk")
+        # -------- network --------
+        # json_file = open(exp3_json, 'r')
+        # loaded_model_json = json_file.read()
+        # json_file.close()
+        # self.net = model_from_json(loaded_model_json)
+        # self.net.load_weights(exp_rot_weights)
+        # print("Loaded model from disk")
         # -------- network --------
 
     # -2: game-over, -1: go-left, 0: do-nothing, 1: go-right
     def get_input_from_user(self):
 
-        for event in pygame.event.get():
-            if event.type == KEYDOWN:
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    return INPUT["game-over"]
-
-
-        key_array = KEY_ARRAY
-        keys_pressed = pygame.key.get_pressed()
-
+        # for event in pygame.event.get():
+        #     if event.type == KEYDOWN:
+        #         if event.type == pygame.QUIT:
+        #             pygame.quit()
+        #             return INPUT["game-over"]
+        #
+        #
+        # key_array = KEY_ARRAY
+        # keys_pressed = pygame.key.get_pressed()
+        #
         actions = {}
         for i in range(len(self.game.players)):
-            actions[i+1] = INPUT["do-nothing"]
-
-        for i,keys in enumerate(key_array):
-            id = i + 1
-            if keys_pressed[keys[0]]:
-                actions[id] = INPUT["go-left"]
-            if keys_pressed[keys[1]]:
-                if actions[id] == INPUT["do-nothing"]:
-                    actions[id] = INPUT["go-right"]
-                else:
-                    actions[id] = INPUT["do-nothing"]
-
-        for keys in key_array:
-            if keys[0] in actions and keys[1] in actions:
-                actions.remove(keys[0])
-                actions.remove(keys[1])
+            actions[i + 1] = INPUT["do-nothing"]
+        #
+        # for i,keys in enumerate(key_array):
+        #     id = i + 1
+        #     if keys_pressed[keys[0]]:
+        #         actions[id] = INPUT["go-left"]
+        #     if keys_pressed[keys[1]]:
+        #         if actions[id] == INPUT["do-nothing"]:
+        #             actions[id] = INPUT["go-right"]
+        #         else:
+        #             actions[id] = INPUT["do-nothing"]
+        #
+        # for keys in key_array:
+        #     if keys[0] in actions and keys[1] in actions:
+        #         actions.remove(keys[0])
+        #         actions.remove(keys[1])
 
         state_maker = GameStateMaker(self.game)
-        prediction = self.net.predict(state_maker.get_state(show_board=False))
-        print("\n --------------- \n prediction \n -----------------")
-        actions[1] = np.argmax(prediction)
-        print(prediction, actions[1])
-        print(" --------------- \n prediction \n ----------------- \n")
+        for i in range(0, NUMBER_OF_PLAYERS):
+            player = self.game.get_player_by_id(i + 1)
+            if not player:
+                continue
+
+            net = self.net1
+            if i != 0:
+                net = self.net2
+                # size = 20
+
+            prediction = net.predict(state_maker.get_state(player=player))
+
+            # print("\n --------------- \n prediction \n -----------------")
+            actions[i + 1] = np.argmax(prediction)
+            # print(prediction, actions[1])
+            # print(" --------------- \n prediction \n ----------------- \n")
 
         return actions
 
@@ -473,9 +631,10 @@ class AchtungGameRunner:
             #             10
             #         )
 
-# if __name__ == "__main__":
-#     runner = AchtungGameRunner(1)
-#     runner.run_game()
+
+if __name__ == "__main__":
+    runner = AchtungGameRunner(NUMBER_OF_PLAYERS)
+    runner.run_game()
 
 # TODO: fix gaps to be based on turns and not time
 # TODO: first priority - improve existing player

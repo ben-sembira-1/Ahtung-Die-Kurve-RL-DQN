@@ -92,6 +92,8 @@ def make_model():
     main_output = Dense(nb_actions, activation='relu')(hidden)
     model = Model(inputs=[main_input], outputs=[main_output])
     return model
+
+
 # --------------------------------------------------------------------
 
 #
@@ -133,9 +135,9 @@ dqn.compile(Adam(lr=0.001), metrics=['mse'])
 dqn.fit(env, nb_steps=350000, visualize=False, verbose=2)
 
 trained_model = model.to_json()
-with open("trainedmodel_exp3.json", "w") as file:
+with open("trainedmodel_exp_rotate.json", "w") as file:
     file.write(trained_model)
 file.close()
 
-dqn.save_weights("model_weights_exp3.h5", overwrite=True)
+dqn.save_weights("model_weights_exp_rotate.h5", overwrite=True)
 print("Saved model to disk")

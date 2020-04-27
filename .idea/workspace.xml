@@ -2,20 +2,208 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39dc8ee4-e56e-4d98-afd8-57172eafef9d" name="Default Changelist" comment="Updated SMOP, 8.4.2020">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Saved model h5/model.h5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Saved model json/trainedmodel.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Saved model weights/model_weights.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model h5/model_against_one_player_v1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model h5/model_against_one_player_v2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model h5/modelv3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model json/trainedmodel_against_one_player_v1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model json/trainedmodel_against_one_player_v2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model json/trainedmodelv3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model weights/model_weights_against_one_player_v1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model weights/model_weights_against_one_player_v2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Saved model weights/model_weightsv3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/achtung_rotate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/achtung_test_parameters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/model_weights_exp3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/trainedmodel_exp3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weights_exp1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weights_exp2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weights_exp3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weights_exp4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weights_exp4_nogaps.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weights_exp4_ultra.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weights_exp_rotate.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weightsv4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_weightsv5.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modelv4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modelv5.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_00_warmup_1000_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_01_warmup_5000_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_02_warmup_8000_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_03_warmup_13000_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_04_warmup_20000_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_10_gamma_0.8_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_11_gamma_0.85_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_12_gamma_0.9_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_13_gamma_0.95_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_14_gamma_0.99_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_20_target_model_update_0.001_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_21_target_model_update_0.01_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_22_target_model_update_0.1_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_23_target_model_update_10000_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_24_target_model_update_20000_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_30_batch_size_32_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_31_batch_size_64_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_32_batch_size_128_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_33_batch_size_512_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedjson/trainedmodel_34_batch_size_1024_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodel_exp1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodel_exp2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodel_exp3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodel_exp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodel_exp4_nogaps.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodel_exp4_ultra.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodel_exp_rotate.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodelv4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedmodelv5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_00_warmup_1000_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_01_warmup_5000_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_02_warmup_8000_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_03_warmup_13000_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_04_warmup_20000_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_10_gamma_0.8_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_11_gamma_0.85_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_12_gamma_0.9_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_13_gamma_0.95_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_14_gamma_0.99_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_20_target_model_update_0.001_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_21_target_model_update_0.01_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_22_target_model_update_0.1_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_23_target_model_update_10000_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_24_target_model_update_20000_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_30_batch_size_32_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_31_batch_size_64_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_32_batch_size_128_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_33_batch_size_512_.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trainedweights/trainedmodel_weights_34_batch_size_1024_.h5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/REAL_CODE_WOW_v1.0.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/REAL_CODE_WOW_v1.0.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/achtung.py" beforeDir="false" afterPath="$PROJECT_DIR$/achtung.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/.gitmodules" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/PKGBUILD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/QuickCurver.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/android/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/appveyor.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/doc/Doxyfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/doc/NETWORK.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/quickcurver.desktop" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/scripts/build.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/scripts/installDependencies.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/scripts/travisDocker.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/bot.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/bot.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/cleaninstallanimation.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/cleaninstallanimation.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/commandlinereader.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/commandlinereader.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/curver.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/curver.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/explosion.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/explosion.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/game.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/game.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/gamewatcher.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/gamewatcher.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/gui.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/gui.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/headnode.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/headnode.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/itemfactory.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/itemfactory.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/agileitem.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/agileitem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/cleaninstallitem.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/cleaninstallitem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/flashitem.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/flashitem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/ghostitem.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/ghostitem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/invisibleitem.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/invisibleitem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/item.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/item.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/slowitem.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/slowitem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/speeditem.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/items/speeditem.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/models/chatmodel.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/models/chatmodel.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/models/itemmodel.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/models/itemmodel.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/models/playermodel.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/models/playermodel.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/mumble.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/mumble.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/network/client.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/network/client.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/network/network.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/network/network.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/network/server.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/network/server.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/qml/About.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/qml/Chat.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/qml/Licenses.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/qml/Players.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/qml/Settings.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/qml/main.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/qml/qml.qrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/segment.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/segment.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/settings.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/settings.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/src.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/util.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/util.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/wall.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_game/quickcurver-master/src/wall.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/achtung_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/achtung_env.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/ahtungGame.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/ahtungGame.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_weights.h5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trainedmodel.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/backblue.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever.whtt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/backblue.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/cookies.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/fade.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/cf1_preloaderb313.swf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/test-flash.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/flash_test/test-landing.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/forum.curvefever.com/play.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/hts-cache/doit.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/hts-cache/new.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/hts-cache/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/hts-cache/winprofile.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/hts-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/www.adobe.com/images/shared/download_buttons/get_flash_player.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/curve fever/www.google-analytics.com/analytics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/fade.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/httrack/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Scripts/cookieconsent.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Scripts/test-flash.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Stylesheets/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Stylesheets/cookieconsent.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Stylesheets/test-landing.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/flash_test/test-flash.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/flash_test/test-landing.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/get_flash_player.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/play.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/wraper.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/selenium_helper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_network.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,13 +265,16 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\Saved model json" />
       <recent name="C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\Saved model weights" />
       <recent name="C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\Saved model h5" />
+      <recent name="C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\Saved model json" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train_network">
+  <component name="RunManager" selected="Python.ahtungGame">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="REAL_CODE_WOW_v1.0" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -128,6 +319,50 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="achtung_rotate" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="REAL_CODE_WOW_v1.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/achtung_rotate.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="achtung_test_parameters" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="REAL_CODE_WOW_v1.0" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/achtung_test_parameters.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="ahtungGame" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="REAL_CODE_WOW_v1.0" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -147,54 +382,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="cartpole" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="REAL_CODE_WOW_v1.0" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\achtung.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="consts" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="REAL_CODE_WOW_v1.0" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gym-achtung/gym_achtung/envs" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gym-achtung/gym_achtung/envs/consts.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="train_network" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="REAL_CODE_WOW_v1.0" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -212,11 +406,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.train_network" />
         <item itemvalue="Python.ahtungGame" />
-        <item itemvalue="Python.cartpole" />
+        <item itemvalue="Python.train_network" />
+        <item itemvalue="Python.achtung_rotate" />
         <item itemvalue="Python.achtung" />
-        <item itemvalue="Python.consts" />
+        <item itemvalue="Python.achtung_test_parameters" />
       </list>
     </recent_temporary>
   </component>
@@ -250,7 +444,15 @@
       <workItem from="1586698378311" duration="25296000" />
       <workItem from="1586946867502" duration="52526000" />
       <workItem from="1587221899151" duration="6543000" />
-      <workItem from="1587228695514" duration="24672000" />
+      <workItem from="1587228695514" duration="53207000" />
+      <workItem from="1587505783566" duration="3877000" />
+      <workItem from="1587566302988" duration="5099000" />
+      <workItem from="1587581164802" duration="3460000" />
+      <workItem from="1587628101551" duration="15034000" />
+      <workItem from="1587685545757" duration="39409000" />
+      <workItem from="1587847689377" duration="1876000" />
+      <workItem from="1587849926257" duration="28925000" />
+      <workItem from="1587972942476" duration="4469000" />
     </task>
     <task id="LOCAL-00001" summary="added ScreenCapture.py file">
       <created>1585560913497</created>
@@ -287,7 +489,21 @@
       <option name="project" value="LOCAL" />
       <updated>1587276152725</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated SMOP, 8.4.2020">
+      <created>1587360524651</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1587360524651</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Updated SMOP, 8.4.2020">
+      <created>1587360679816</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1587360679816</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,6 +535,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="233" y="2" key="#Notifications/0.0.1280.680@0.0.1280.680" timestamp="1587360670772" />
+    <state x="325" y="48" key="#com.intellij.featureStatistics.actions.ShowFeatureUsageStatisticsDialog" timestamp="1587567871105">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="325" y="48" key="#com.intellij.featureStatistics.actions.ShowFeatureUsageStatisticsDialog/0.0.1280.680@0.0.1280.680" timestamp="1587567871105" />
     <state x="402" y="150" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587303932710">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -335,78 +555,78 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="393" y="209" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1280.680@0.0.1280.680" timestamp="1586440756355" />
-    <state x="256" y="0" key="CommitChangelistDialog2" timestamp="1587360523880">
+    <state x="256" y="0" key="CommitChangelistDialog2" timestamp="1587414114434">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="256" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1587360523880" />
+    <state x="256" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1587414114434" />
     <state x="420" y="97" key="FileChooserDialogImpl" timestamp="1587228282354">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="420" y="97" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1587228282354" />
-    <state width="1237" height="261" key="GridCell.Tab.0.bottom" timestamp="1587327567533">
+    <state width="1237" height="204" key="GridCell.Tab.0.bottom" timestamp="1587847603025">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="261" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587327567533" />
-    <state width="1237" height="261" key="GridCell.Tab.0.center" timestamp="1587327567533">
+    <state width="1237" height="204" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587847603025" />
+    <state width="1237" height="204" key="GridCell.Tab.0.center" timestamp="1587847603025">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="261" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1587327567533" />
-    <state width="1237" height="261" key="GridCell.Tab.0.left" timestamp="1587327567533">
+    <state width="1237" height="204" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1587847603025" />
+    <state width="1237" height="204" key="GridCell.Tab.0.left" timestamp="1587847603024">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="261" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1587327567533" />
-    <state width="1237" height="261" key="GridCell.Tab.0.right" timestamp="1587327567533">
+    <state width="1237" height="204" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1587847603024" />
+    <state width="1237" height="204" key="GridCell.Tab.0.right" timestamp="1587847603025">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="261" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1587327567533" />
-    <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1587221876101">
+    <state width="1237" height="204" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1587847603025" />
+    <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1587847603026">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="204" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587221876101" />
-    <state width="1237" height="204" key="GridCell.Tab.1.center" timestamp="1587221876101">
+    <state width="1237" height="204" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587847603026" />
+    <state width="1237" height="204" key="GridCell.Tab.1.center" timestamp="1587847603025">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="204" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1587221876101" />
-    <state width="1237" height="204" key="GridCell.Tab.1.left" timestamp="1587221876101">
+    <state width="1237" height="204" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1587847603025" />
+    <state width="1237" height="204" key="GridCell.Tab.1.left" timestamp="1587847603025">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="204" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1587221876101" />
-    <state width="1237" height="204" key="GridCell.Tab.1.right" timestamp="1587221876101">
+    <state width="1237" height="204" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1587847603025" />
+    <state width="1237" height="204" key="GridCell.Tab.1.right" timestamp="1587847603026">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="204" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1587221876101" />
-    <state x="144" y="0" key="SettingsEditor" timestamp="1587280399242">
+    <state width="1237" height="204" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1587847603026" />
+    <state x="144" y="0" key="SettingsEditor" timestamp="1587718900801">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="144" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1587280399242" />
-    <state x="233" y="65" key="Vcs.Push.Dialog.v2" timestamp="1587360528746">
+    <state x="144" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1587718900801" />
+    <state x="233" y="65" key="Vcs.Push.Dialog.v2" timestamp="1587360684316">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="65" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1587360528746" />
+    <state x="233" y="65" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1587360684316" />
     <state width="647" height="347" key="XDebugger.FullValuePopup" timestamp="1586353554455">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state width="647" height="347" key="XDebugger.FullValuePopup/0.0.1280.680@0.0.1280.680" timestamp="1586353554455" />
-    <state x="148" y="85" width="1095" height="495" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1587333516841">
+    <state x="148" y="85" width="1095" height="495" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1587974983092">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="148" y="85" width="1095" height="495" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1587333516841" />
+    <state x="148" y="85" width="1095" height="495" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1587974983092" />
     <state x="-132" y="53" width="1095" height="495" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1587333516841">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="-132" y="53" width="1095" height="495" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1587333516841" />
-    <state x="452" y="259" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586350557133">
+    <state x="452" y="259" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587992696617">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="452" y="259" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1586350557133" />
+    <state x="452" y="259" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1587992696617" />
     <state x="317" y="144" key="git4idea.merge.GitPullDialog" timestamp="1586350658868">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="317" y="144" key="git4idea.merge.GitPullDialog/0.0.1280.680@0.0.1280.680" timestamp="1586350658868" />
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1586440752327">
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1587645591655">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1586440752327" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1587645591655" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -417,9 +637,10 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/REAL_CODE_WOW_v1_0$achtung.coverage" NAME="achtung Coverage Results" MODIFIED="1587815831240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/REAL_CODE_WOW_v1_0$achtung_env.coverage" NAME="achtung_env Coverage Results" MODIFIED="1586426164615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gym-achtung/gym_achtung/envs" />
     <SUITE FILE_PATH="coverage/REAL_CODE_WOW_v1_0$main.coverage" NAME="main Coverage Results" MODIFIED="1586354230650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/REAL_CODE_WOW_v1_0$cartpole.coverage" NAME="cartpole Coverage Results" MODIFIED="1587281719052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/REAL_CODE_WOW_v1_0$ahtungGame.coverage" NAME="ahtungGame Coverage Results" MODIFIED="1587111954292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gym-achtung/gym_achtung/envs" />
+    <SUITE FILE_PATH="coverage/REAL_CODE_WOW_v1_0$ahtungGame.coverage" NAME="ahtungGame Coverage Results" MODIFIED="1587847597852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gym-achtung/gym_achtung/envs" />
   </component>
 </project>

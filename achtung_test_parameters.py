@@ -11,7 +11,6 @@ import random
 from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy
 from rl.memory import SequentialMemory
-
 import warnings
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -92,6 +91,8 @@ def make_model():
     main_output = Dense(nb_actions, activation='relu')(hidden)
     model = Model(inputs=[main_input], outputs=[main_output])
     return model
+
+
 # --------------------------------------------------------------------
 
 #
@@ -120,22 +121,73 @@ model.add(Dense(nb_actions, activation = 'relu'))
 #                  train_interval=1, memory_interval=1, target_model_update=10000,
 #                  delta_range=None, delta_clip=np.inf, custom_model_objects={}, **kwargs):
 
-model = make_model()
 
-policy = EpsGreedyQPolicy()
-memory = SequentialMemory(limit=50000, window_length=1)
+gamma_test_array = [0.8, 0.85, 0.9, 0.95, 0.99]
+warmup_test_array = [1000, 5000, 8000, 13000, 20000]
+target_model_update_tset_array = [1e-3, 1e-2, 1e-1, 10000, 20000]
+batch_size_array = [32, 64, 128, 512, 1024]
 
-dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=1500, gamma=0.99,
-               target_model_update=10000,
-               policy=policy)
-dqn.compile(Adam(lr=0.001), metrics=['mse'])
-# Okay, now it's time to learn something! We visualize the training here for show, but this slows down training quite a lot.
-dqn.fit(env, nb_steps=350000, visualize=False, verbose=2)
+file_names_addons = ["_warmup_", "_gamma_", "_target_model_update_", "_batch_size_"]
 
-trained_model = model.to_json()
-with open("trainedmodel_exp3.json", "w") as file:
-    file.write(trained_model)
-file.close()
+tests = [warmup_test_array, gamma_test_array, target_model_update_tset_array, batch_size_array]
 
-dqn.save_weights("model_weights_exp3.h5", overwrite=True)
-print("Saved model to disk")
+
+def get_parametrs(i, j):
+    params = [1000, .99, 1e-3, 32]
+    params[i] = tests[i][j]
+    return params
+
+
+for i in range(len(tests)):
+    for j in range(len(tests[i])):
+        model = make_model()
+        policy = EpsGreedyQPolicy()
+        params = get_parametrs(i, j)
+        memory = SequentialMemory(limit=50000, window_length=1)
+        nb_steps_warmup, gamma, target_model_update, batch_size = params[0], params[1], params[2], params[3]
+        dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, gamma=gamma, nb_steps_warmup=nb_steps_warmup,
+                       target_model_update=target_model_update,
+                       policy=policy, batch_size=batch_size)
+        dqn.compile(Adam(lr=0.001), metrics=['mse'])
+        # Okay, now it's time to learn something! We visualize the training here for show, but this slows down training quite a lot.
+        dqn.fit(env, nb_steps=50000, visualize=False, verbose=2)
+
+        trained_model = model.to_json()
+        path = "trainedjson/trainedmodel_" + str(i) + str(j) + file_names_addons[i] + str(params[i]) + "_.json"
+        with open(path, "w") as file:
+            file.write(trained_model)
+        file.close()
+
+        path = "trainedweights/trainedmodel_weights_" + str(i) + str(j) + file_names_addons[i] + str(params[i]) + "_.h5"
+        dqn.save_weights(path, overwrite=True)
+        print("Saved model to disk")
+
+        # dqn.test(env, nb_episodes=5, visualize=False)
+print("done!")
+
+for i in range(len(tests)):
+    for j in range(len(tests[i])):
+        model = make_model()
+        policy = EpsGreedyQPolicy()
+        params = get_parametrs(i, j)
+        memory = SequentialMemory(limit=50000, window_length=1)
+        nb_steps_warmup, gamma, target_model_update, batch_size = params[0], params[1], params[2], params[3]
+        dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, gamma=gamma, nb_steps_warmup=nb_steps_warmup,
+                       target_model_update=target_model_update,
+                       policy=policy, batch_size=batch_size)
+        dqn.compile(Adam(lr=0.01), metrics=['mse'])
+        # Okay, now it's time to learn something! We visualize the training here for show, but this slows down training quite a lot.
+        dqn.fit(env, nb_steps=50000, visualize=False, verbose=2)
+
+        trained_model = model.to_json()
+        path = "trainedjson/trainedmodel_" + str(i) + str(j) + file_names_addons[i] + str(params[i]) + "_.json"
+        with open(path, "w") as file:
+            file.write(trained_model)
+        file.close()
+
+        path = "trainedweights/trainedmodel_weights_" + str(i) + str(j) + file_names_addons[i] + str(params[i]) + "_.h5"
+        dqn.save_weights(path, overwrite=True)
+        print("Saved model to disk")
+
+        # dqn.test(env, nb_episodes=5, visualize=False)
+print("done!")
