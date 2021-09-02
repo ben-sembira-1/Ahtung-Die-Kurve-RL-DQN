@@ -5,7 +5,9 @@ from gym_achtung.envs.consts import *
 from keras.models import Sequential, Model
 from keras.layers import Input, Dense, Activation, Flatten, Convolution2D, Conv2D, MaxPool2D, concatenate
 from keras.optimizers import Adam, SGD
-
+from datetime import datetime
+import time
+import random
 from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy
 from rl.memory import SequentialMemory
@@ -25,11 +27,14 @@ ENV_NAME = 'achtung-v0'
 
 # Get the environment and extract the number of actions available in the Cartpole problem
 env = gym.make(ENV_NAME)
-np.random.seed(123)
-env.seed(123)
+# seed = int(datetime.now().strftime("%d%H%M%S"))
+random.seed(int(time.time()))
+env.seed(int(time.time()))
+# print("seed:",seed)
 nb_actions = env.action_space.n
 
 print(env.action_space.n)
+
 
 # model = Sequential()
 # model.add(Flatten(input_shape=(1,) + env.observation_space.shape))
@@ -74,20 +79,19 @@ print(env.action_space.n)
 # model.summary()
 # --------------------------------------------------------------------
 
-
-main_input = Input((1,) + env.observation_space.shape)
-hidden = Conv2D(64, kernel_size=(5, 5), activation='relu', padding='same')(main_input)
-hidden = MaxPool2D((2, 2), padding='same')(hidden)
-hidden = Conv2D(64, kernel_size=(3, 3), activation='relu', padding='same')(hidden)
-hidden = MaxPool2D((2, 2), padding='same')(hidden)
-hidden = Conv2D(32, kernel_size=(3, 3), activation='relu', padding='same')(hidden)
-hidden = MaxPool2D((2, 2), padding='same')(hidden)
-hidden = Flatten()(hidden)
-hidden = Dense(512, activation='relu')(hidden)
-main_output = Dense(nb_actions, activation='relu')(hidden)
-model = Model(inputs=[main_input], outputs=[main_output])
-
-model.summary()
+def make_model():
+    main_input = Input((1,) + env.observation_space.shape)
+    hidden = Conv2D(64, kernel_size=(5, 5), activation='relu', padding='same')(main_input)
+    hidden = MaxPool2D((2, 2), padding='same')(hidden)
+    hidden = Conv2D(64, kernel_size=(3, 3), activation='relu', padding='same')(hidden)
+    hidden = MaxPool2D((2, 2), padding='same')(hidden)
+    hidden = Conv2D(32, kernel_size=(3, 3), activation='relu', padding='same')(hidden)
+    hidden = MaxPool2D((2, 2), padding='same')(hidden)
+    hidden = Flatten()(hidden)
+    hidden = Dense(512, activation='relu')(hidden)
+    main_output = Dense(nb_actions, activation='relu')(hidden)
+    model = Model(inputs=[main_input], outputs=[main_output])
+    return model
 # --------------------------------------------------------------------
 
 #
@@ -112,21 +116,26 @@ model.add(Dense(128, activation='relu'))
 model.add(Dense(nb_actions, activation = 'relu'))
 '''
 
+# self, nb_actions, memory, gamma=.99, batch_size=32, nb_steps_warmup=1000,
+#                  train_interval=1, memory_interval=1, target_model_update=10000,
+#                  delta_range=None, delta_clip=np.inf, custom_model_objects={}, **kwargs):
+
+model = make_model()
+
 policy = EpsGreedyQPolicy()
-memory = SequentialMemory(limit=35000, window_length=1)
-dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=15000, target_model_update=1e-2,
+memory = SequentialMemory(limit=50000, window_length=1)
+
+dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=1500, gamma=0.99,
+               target_model_update=10000,
                policy=policy)
 dqn.compile(Adam(lr=0.001), metrics=['mse'])
 # Okay, now it's time to learn something! We visualize the training here for show, but this slows down training quite a lot.
-dqn.fit(env, nb_steps=70000, visualize=False, verbose=2)
+dqn.fit(env, nb_steps=350000, visualize=False, verbose=2)
 
 trained_model = model.to_json()
-with open("Saved model json/trainedmodel.json", "w") as file:
+with open("trainedmodel_exp3.json", "w") as file:
     file.write(trained_model)
 file.close()
 
-dqn.save_weights("model_weights.h5", overwrite=True)
-model.save("model.h5", overwrite=True)
+dqn.save_weights("model_weights_exp3.h5", overwrite=True)
 print("Saved model to disk")
-
-dqn.test(env, nb_episodes=5, visualize=False)

@@ -1,7 +1,6 @@
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
-from .ahtungGame import *
 # import pygame
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,13 +8,17 @@ from .consts import *
 import colorama
 from colorama import Fore, Style
 import cv2
+from gym_achtung.envs.ahtungGame import *
 # import skimage
+import png
+from scipy import ndimage
 
 
 class AchtungEnv(gym.Env):
     networks = []
     metadata = {'render.modes': ['human']}
-    number_of_players = 1
+    number_of_players = NUMBER_OF_PLAYERS
+
     # file_to_print_matrix = open("game.txt", "w")
 
     def __init__(self):
@@ -50,6 +53,7 @@ class AchtungEnv(gym.Env):
         # self.observation_space = np.zeros((2, self.observation_board_height, self.observation_board_width))
         self.observation_space = np.zeros((self.observation_board_height, self.observation_board_width))
         self.num_of_steps = 0
+
         # self.observation_space = spaces.MultiDiscrete((SCREEN_WIDTH // SCALING) * (SCREEN_HEIGHT // SCALING))
         self.seed()
         # self.img_memory = np.zeros((self.observation_board_height, self.observation_board_width))
@@ -64,7 +68,21 @@ class AchtungEnv(gym.Env):
         # self.num_of_steps = 0
         # self.seed()
         # ----------------------------------------
-        #printing board with plt
+        # printing board with plt
+
+        #    -------- network --------
+
+        exp3_model = r'trainedmodel_exp3.json'
+        exp3_weights = r'model_weights_exp3.h5'
+
+        json_file = open(exp3_model, 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        self.net = model_from_json(loaded_model_json)
+        self.net.load_weights(exp3_weights)
+
+    #    print("Loaded model from disk")
+    #    -------- network --------
 
     '''
 
@@ -95,36 +113,52 @@ class AchtungEnv(gym.Env):
 
     def step(self, action):
         to_return = None
+
+        actions_to_send = [(self.players[0], action)]
+
+        state_maker = GameStateMaker(self.game)
+        for i in range(1, NUMBER_OF_PLAYERS):
+            p = self.players[i]
+            prediction = self.net.predict(state_maker.get_state(show_board=False, player=p))
+            # print("\n --------------- \n prediction \n -----------------")
+            net_action = np.argmax(prediction)
+            actions_to_send.append((p, net_action))
+
         for i in range(5):
-            to_return = self.one_step(action)
+            to_return = self.one_step(actions_to_send)
             if to_return[2]:
                 to_return[0] = self.get_state(show_board=SHOW_BOARD)
                 return to_return
         to_return[0] = self.get_state(show_board=SHOW_BOARD)
-        #print("to_return[0].shape: ",to_return[0].shape)
+        # print("to_return[0].shape: ",to_return[0].shape)
         return to_return[0], to_return[1], to_return[2], to_return[3]
 
-    def one_step(self, action):  # actions = the output of each network, the actions they want to do
+    def one_step(self, actions):  # actions = the output of each network, the actions they want to do
 
         # resized_game_board = skimage.measure.block_reduce(self.game.game_board, (SCREEN_RESIZE_FACTOR,SCREEN_RESIZE_FACTOR), np.max)
         # resized_game_board = np.array([[1 if x > 0 else 0 for x in row] for row in resized_game_board])
 
+        # print(prediction, actions[1])
+        # print(" --------------- \n prediction \n ----------------- \n")
+        # prediction = self.net.predict(state_maker.get_state(show_board=False, player=self.players[2]))
+        # # print("\n --------------- \n prediction \n -----------------")
+        # net_action_p3 = np.argmax(prediction)
+
         self.num_of_steps += 1
 
-        actions_to_send = [(self.players[0], action)]
         # get action from a random trained network
-        for i in range(1, AchtungEnv.number_of_players):
-            chosen_network = np.random.choice(AchtungEnv.networks)
-            pred = chosen_network.predict(self.get_state(id=i + 1))
-            max = (pred[0], 0)
-            for i in range(len(pred)):
-                if pred[i] > max[0]:
-                    max = (pred[i], i)
-            action_from_trained_network = max[0] - 1
-            actions_to_send.append((self.players[i], action_from_trained_network))
+        # for i in range(1, AchtungEnv.number_of_players):
+        #     chosen_network = np.random.choice(AchtungEnv.networks)
+        #     pred = chosen_network.predict(self.get_state(id=i + 1))
+        #     max = (pred[0], 0)
+        #     for i in range(len(pred)):
+        #         if pred[i] > max[0]:
+        #             max = (pred[i], i)
+        #     action_from_trained_network = max[0] - 1
+        #     actions_to_send.append((self.players[i], action_from_trained_network))
 
         # do move
-        board_not_processed, players, game_over = self.game.step(actions_to_send)
+        board_not_processed, players, game_over = self.game.step(actions)
         reward = self.get_reward(game_over, players)
         return [{}, reward, bool(game_over), {}]
 
@@ -133,7 +167,7 @@ class AchtungEnv(gym.Env):
         # self.observation_space[:,:,1] = self.observation_space[:,:,0]
         # self.observation_space[:,:,0] = resized_game_board
         obs = resized_game_board
-        self.show_board(resized_game_board, show_board)
+        # self.show_board(resized_game_board, show_board)
         # curr_place = (self.players[id-1].x, self.players[id-1].y)
         # if self.num_of_steps%100 == 0:
         #     plt.subplot(221)
@@ -157,27 +191,28 @@ class AchtungEnv(gym.Env):
         return obs
 
     def preprocess_board(self, board):
-        new_board = self.cut_board(board)
+        new_board = self.cut_board3_speedy(board, self.players[0])
 
         # self.add_all_players_to_cutted_board(new_board, ZOOM)
-        # new_board = self.smear_board(new_board)
         # curr_player = self.players[0]
         # new_board = rotate(new_board, curr_player.theta + np.pi) #this function rotates the board to match the player
         # if self.num_of_steps % 100 == 0:
         #     plt.imshow(new_board)
         #     plt.show()
-        # if self.num_of_steps%50 == 0:
-        #     plt.subplot(221)
-        #     plt.imshow(self.game.game_board)
-        #     # self.axis[1].imshow(cv2.resize(self.game.game_board, (self.game.game_board.shape[1] // 2,self.game.game_board.shape[0] // 2)))
-        #     plt.subplot(222)
-        #     plt.imshow(new_board)
-        #     plt.subplot(223)
-        #     plt.imshow(cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE) ))
-        #     plt.subplot(224)
-        #     plt.imshow(cv2.resize(cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE)), (15,15) ))
-        #     plt.show()
-        new_board = cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE))
+        if self.num_of_steps % 10 == 0 and SHOW_BOARD:
+            plt.subplot(221)
+            plt.imshow(self.game.game_board)
+            # self.axis[1].imshow(cv2.resize(self.game.game_board, (self.game.game_board.shape[1] // 2,self.game.game_board.shape[0] // 2)))
+            plt.subplot(222)
+            plt.imshow(new_board)
+            plt.subplot(223)
+            plt.imshow(self.smear_board_v2(new_board))
+            # plt.subplot(224)
+            # plt.imshow(cv2.resize(cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE)), (15,15) ))
+            plt.show()
+
+        new_board = self.smear_board_v2(new_board)
+        # new_board = cv2.resize(new_board, (FINAL_SIZE, FINAL_SIZE))
 
         # prints boards side by side
 
@@ -230,7 +265,7 @@ class AchtungEnv(gym.Env):
                                        SCREEN_WIDTH // (ZOOM * 2) + int(p.x) - int(curr_player.x),
                                        SCREEN_HEIGHT // (ZOOM * 2) + int(p.y) - int(curr_player.y),
                                        1)
-        self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
+        # self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
 
     def draw_circle_on_matrix(self, new_board, x, y, val):
 
@@ -242,9 +277,12 @@ class AchtungEnv(gym.Env):
                     continue
                 new_board[x + i][y + j] = val
 
-    def cut_board(self, board):
-        p = self.players[0]
-        new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM)  )
+    def cut_board1(self, board, player):
+        """
+        1st gen
+        """
+        p = player
+        new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
         for x in range(SCREEN_WIDTH // ZOOM):
             for y in range(SCREEN_HEIGHT // ZOOM):
                 if not self.in_board_range(x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x),
@@ -252,17 +290,119 @@ class AchtungEnv(gym.Env):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
                 elif board[x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)][y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)]:
                     self.draw_circle_on_matrix(new_board, x, y, -1)
-        for other_player in self.players:
-            if abs(other_player.x - p.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(other_player.y - p.y) > SCREEN_HEIGHT // (
-                    ZOOM * 2):
-                continue
-            self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2) + int(other_player.x) - int(p.x),
-                                       SCREEN_HEIGHT // (ZOOM * 2) + int(other_player.y) - int(p.y), 1)
+        # for other_player in self.players:
+        #     if abs(other_player.x - p.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(other_player.y - p.y) > SCREEN_HEIGHT // (
+        #             ZOOM * 2):
+        #         continue
+        #     self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2) + int(other_player.x) - int(p.x),
+        #                                SCREEN_HEIGHT // (ZOOM * 2) + int(other_player.y) - int(p.y), 1)
         self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
         return new_board
 
+    # def cut_board(self, board):
+    #     p = self.players[0]
+    #     new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM)  )
+    #     for x in range(SCREEN_WIDTH // ZOOM):
+    #         x_temp = x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)
+    #         if 0 > x_temp or x_temp > SCREEN_WIDTH:
+    #             continue
+    #         for y in range(SCREEN_HEIGHT // ZOOM):
+    #             y_temp = y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)
+    #             if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+    #                 self.draw_circle_on_matrix(new_board, x, y, -1)
+    #             if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+    #                 self.draw_circle_on_matrix(new_board, x, y, -1)
+    #
+    #             if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
+    #                 self.draw_circle_on_matrix(new_board, x, y, -1)
 
-    def smear_board(self, new_board):
+    def cut_board2(self, board, player):
+        """
+        2nd gen - fences
+        """
+        p = player
+        new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
+        for x in range(SCREEN_WIDTH // ZOOM):
+            x_temp = x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)
+            if 0 > x_temp or x_temp > SCREEN_WIDTH:
+                continue
+            for y in range(SCREEN_HEIGHT // ZOOM):
+                y_temp = y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)
+                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+
+                if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+
+        # for other_player in self.players:
+        #     if abs(other_player.x - p.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(other_player.y - p.y) > SCREEN_HEIGHT // (
+        #             ZOOM * 2):
+        #         continue
+        #     self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2) + int(other_player.x) - int(p.x),
+        #                                SCREEN_HEIGHT // (ZOOM * 2) + int(other_player.y) - int(p.y), 1)
+        # self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
+        return new_board
+
+    def rotate_with_scipy(self, matrix, angle):
+        angle_in_deg = 180 - angle * 360 / (2 * np.pi)
+        to_return = ndimage.rotate(matrix, angle_in_deg, reshape=False)
+
+        for i in range(len(to_return)):
+            for j in range(len(to_return[i])):
+                val = to_return[i][j]
+                if -1.5 < val < -0.5:
+                    to_return[i][j] = -1
+                else:
+                    to_return[i][j] = 0
+        return to_return
+
+    def cut_board3_first_cut(self, board, player):
+        p = player
+        new_board = np.zeros((int(1.5 * SCREEN_WIDTH // ZOOM + 10), int(1.5 * SCREEN_HEIGHT // ZOOM + 10)))
+        for x in range(int(1.5 * SCREEN_WIDTH // ZOOM + 10)):
+            x_temp = x - int(1.5 * SCREEN_WIDTH // (2 * ZOOM) + 10) + int(p.x)
+            if 0 > x_temp or x_temp > SCREEN_WIDTH:
+                continue
+            for y in range(int(1.5 * SCREEN_HEIGHT // ZOOM + 10)):
+                y_temp = y - int(1.5 * SCREEN_HEIGHT // (ZOOM * 2) + 10) + int(p.y)
+                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+
+                if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
+                    self.draw_circle_on_matrix(new_board, x, y, -1)
+        return new_board
+
+    def cut_board3(self, board, player):
+        """
+        3rd gen - rotate
+        """
+
+        new_board = self.cut_board3_first_cut(board, player);
+        centered_player = (int((1.5 * SCREEN_WIDTH // ZOOM + 10) // 2), int(1.5 * SCREEN_HEIGHT // ZOOM + 10) // 2)
+        new_board = self.rotate_with_scipy(new_board, player.theta)
+        center_X, center_y = len(new_board) // 2, len(new_board[0]) // 2
+        new_board = new_board[
+                    center_X - (SCREEN_WIDTH // (2 * ZOOM)): center_X + (SCREEN_WIDTH // (2 * ZOOM)),
+                    center_y - (SCREEN_HEIGHT // (2 * ZOOM)): center_y + (SCREEN_HEIGHT // (2 * ZOOM))
+                    ]
+        return new_board
+
+    def cut_board3_speedy(self, board, player):
+        """
+        3rd gen - rotate (speedy version)
+        """
+
+        new_board = self.cut_board2(board, player)
+        new_board = self.smear_board_v2(new_board, size=int(FINAL_SIZE * 2))
+        new_board = self.rotate_with_scipy(new_board, player.theta)
+
+        return new_board
+
+    def smear_board_v1(self, new_board):
         smeard_board = np.zeros((len(new_board) // SCALING + 1, len(new_board[0]) // SCALING + 1))
         for x in range(len(new_board)):
             for y in range(len(new_board[0])):
@@ -278,9 +418,26 @@ class AchtungEnv(gym.Env):
 
         return smeard_board
 
+    def get_smeared_board_one_val(self, new_board, x, y, size=FINAL_SIZE):
+        jump_size = len(new_board) // size
+        to_return = 0
+        for tmp_x in range(x * jump_size, (x + 1) * jump_size):
+            for tmp_y in range(y * jump_size, (y + 1) * jump_size):
+                if new_board[tmp_x][tmp_y]:
+                    if new_board[x][y] > 0:
+                        return new_board[tmp_x][tmp_y]
+                    to_return = new_board[tmp_x][tmp_y]
 
+        return to_return
 
+    def smear_board_v2(self, new_board, size=FINAL_SIZE):
+        smeared_board = np.zeros((size, size))
 
+        for x in range(size):
+            for y in range(size):
+                smeared_board[x][y] = self.get_smeared_board_one_val(new_board, x, y, size=size)
+
+        return smeared_board
 
     def get_reward(self, game_over, players):
         """
@@ -290,10 +447,9 @@ class AchtungEnv(gym.Env):
         elif game_over and self.players[0] in players:
             return WIN_REWARD
         """
-        if not game_over and self.players[0] in players:
+        if self.game.get_player_by_id(1) is not None:
             return 1.0
         else:
-            print('Game is over!\nThe network played ' + str(self.game.num_of_turns) + 'turns.')
             return -100.0
 
     def reset(self):
@@ -301,6 +457,7 @@ class AchtungEnv(gym.Env):
         self.players = [self.game.get_player_by_id(id + 1) for id in range(AchtungEnv.number_of_players)]
         self.seed()
         self.num_of_steps = 0
+        self.game_recorder = []
         plt.close('all')
 
         # ------ pygame ------
