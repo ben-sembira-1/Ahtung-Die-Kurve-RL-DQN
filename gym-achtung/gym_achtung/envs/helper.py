@@ -22,3 +22,12 @@ class TmpQueue:
 
     def contains(self, e):
         return e in self.queue_list
+# import numpy as np
+#
+# new_board = np.ones((20,20))
+#
+# observation_space = np.zeros((1, 20, 20, 2))
+#
+# observation_space[:,:,:,1] =observation_space[:,:,:,0]
+# observation_space[:,:,:,0] = np.expand_dims(new_board,axis=0)
+#

@@ -1,23 +1,30 @@
-from gym import error, spaces, utils
-from gym.utils import seeding
+from scipy import ndimage, misc
+from PIL import Image
+import matplotlib.pyplot as plt
 import numpy as np
-from gym_achtung.envs.consts import *
 
 
-# -----------------------------------------
-action_space = spaces.Discrete(3)
-scaling = 4
+def print_mat(mat):
+    for i in range(len(mat)):
+        for j in range(len(mat[0])):
+            print(mat[i][j], end=" ")
+        print()
 
-high = np.array([SCREEN_WIDTH//scaling, SCREEN_HEIGHT//scaling]) # related to the 2-nd method below
-low = np.zeros(2)
-one_player_location_space = spaces.Box(low, high, dtype=np.int16)
-# high = np.array([SCREEN_WIDTH//self.scaling, SCREEN_HEIGHT//self.scaling]*FooEnv.number_of_players)
-# low = np.zeros(2 * FooEnv.number_of_players)
-# all_players_location_space = spaces.box(low, high, dtype=np.int16)
 
-# 0,1 1d array in size SCREEN_WIDTH/t X SCREEN_HEIGHT/t
-game_board_space = spaces.MultiBinary(SCREEN_WIDTH//scaling * SCREEN_HEIGHT//scaling)
-# 0,1 1d array in size SCREEN_WIDTH/t X SCREEN_HEIGHT/t box of all players with dtype=np.int16
-observation_space = spaces.Tuple((one_player_location_space, game_board_space))
+n_x = 200
+n_y = 200
+img = np.zeros((n_x, n_y))
+img[20:50, 20:40] = 1
+imr = Image.fromarray(img)
 
-print(observation_space)
+fig = plt.figure(figsize=(10, 3))
+ax1, ax2 = fig.subplots(1, 2)
+print(type(imr))
+img_45 = imr.rotate(45)
+# full_img_45 = ndimage.rotate(img, 45, reshape=True)
+ax1.imshow(img)
+ax1.set_axis_off()
+ax2.imshow(img_45)
+ax2.set_axis_off()
+fig.set_tight_layout(True)
+plt.show()

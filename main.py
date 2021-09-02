@@ -7,9 +7,12 @@ import numpy as np
 import gym
 import gym_achtung
 
-from keras.models import Sequential
-from keras.layers import Dense, Activation, Flatten
+from keras.models import Model
+from keras.layers import Input, Dense, Activation, Flatten
 from keras.optimizers import Adam
+from keras.losses import binary_crossentropy
+from keras.layers.advanced_activations import LeakyReLU
+import matplotlib.pyplot as plt
 
 from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy
@@ -23,8 +26,16 @@ env.seed(123)
 nb_actions = env.action_space.n
 # nb_observations = env.observation_space.n
 
+print(env.observation_space.shape)
 
-input_layer = Input((1,) + env.observation_space.shape))
+input = Input(shape=env.observation_space.shape)
+x = Flatten()(input)
+x = Dense(16, activation='relu')(x)
+x = Dense(16, activation='relu')(x)
+x = Dense(16, activation='relu')(x)
+output = Dense(nb_actions, activation='sigmoid')(x)
+model = Model(inputs=input, outputs=output)
+
 # model = Sequential()
 # model.add(Flatten(input_shape=(1,) + env.observation_space.shape)) #if there is an error consider delete: (1,) +
 # model.add(Dense(16))
@@ -99,3 +110,16 @@ dqn_agent.fit(env, nb_steps=5000, visualize=False, verbose=2)
 #             return np.random.choice(env.action_space)
 #         else:
 #             return np.argmax(self.predict())
+
+#
+# def create_model(self):
+#     model = Sequential()
+#     state_shape = self.env.observation_space.shape
+#     model.add(Dense(24, input_dim=state_shape[0],
+#                     activation="relu"))
+#     model.add(Dense(48, activation="relu"))
+#     model.add(Dense(24, activation="relu"))
+#     model.add(Dense(self.env.action_space.n))
+#     model.compile(loss="mean_squared_error",
+#                   optimizer=Adam(lr=self.learning_rate))
+#     return model
