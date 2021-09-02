@@ -10,6 +10,10 @@ from scipy import ndimage
 
 # ------ End Of Imports -----
 
+# ------ Constants ------
+MODEL_FILE = r'F:\Projects\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\trainedmodel_exp_rotate.json'
+MODEL_WEIGHTS_FILE = r'F:\Projects\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\model_weights_exp_rotate.h5'
+
 class GameStateMaker(object):
     """docstring for GameStateMaker."""
 
@@ -483,8 +487,7 @@ class AchtungGameRunner:
         exp3_json = r'trainedmodel_exp3.json'
         exp3_weights = r'model_weights_exp3.h5'
 
-        exp_rot = r'F:\Projects\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\trainedmodel_exp_rotate.json'
-        exp_rot_weights = r'F:\Projects\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\model_weights_exp_rotate.h5'
+
         # ------ pygame ------
         pygame.init()
         self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
@@ -508,18 +511,18 @@ class AchtungGameRunner:
         # fifty_k_model = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\trainedjson\trainedmodel_00_warmup_1000_.json'
         # fifty_k_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\models\trainedweights\trainedmodel_weights_00_warmup_1000_.h5'
 
-        json_file = open(exp_rot, 'r')
+        json_file = open(MODEL_FILE, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         self.net1 = model_from_json(loaded_model_json)
-        self.net1.load_weights(exp_rot_weights)
+        self.net1.load_weights(MODEL_WEIGHTS_FILE)
         print("Loaded model from disk")
 
-        json_file = open(exp_rot, 'r')
+        json_file = open(MODEL_FILE, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         self.net2 = model_from_json(loaded_model_json)
-        self.net2.load_weights(exp_rot_weights)
+        self.net2.load_weights(MODEL_WEIGHTS_FILE)
         print("Loaded model from disk")
         # -------- network --------
         # json_file = open(exp3_json, 'r')
