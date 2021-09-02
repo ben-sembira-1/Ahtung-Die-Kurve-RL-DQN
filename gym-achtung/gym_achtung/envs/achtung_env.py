@@ -10,7 +10,8 @@ from colorama import Fore, Style
 import cv2
 from gym_achtung.envs.ahtungGame import *
 # import skimage
-import png
+# Todo: png was not commented, but a research for wat package is it is required.
+# import png
 from scipy import ndimage
 
 
