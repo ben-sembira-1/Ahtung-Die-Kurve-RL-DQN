@@ -483,8 +483,8 @@ class AchtungGameRunner:
         exp3_json = r'trainedmodel_exp3.json'
         exp3_weights = r'model_weights_exp3.h5'
 
-        exp_rot = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\trainedmodel_exp_rotate.json'
-        exp_rot_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\model_weights_exp_rotate.h5'
+        exp_rot = r'F:\Projects\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\trainedmodel_exp_rotate.json'
+        exp_rot_weights = r'F:\Projects\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\model_weights_exp_rotate.h5'
         # ------ pygame ------
         pygame.init()
         self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
