@@ -4,7 +4,7 @@ import gym_achtung
 from gym_achtung.envs.consts import *
 from keras.models import Sequential, Model, model_from_json
 from keras.layers import Input, Dense, Activation, Flatten, Convolution2D, Conv2D, MaxPool2D, concatenate
-import keras.optimizers
+from tensorflow.keras import optimizers
 
 from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy
@@ -30,7 +30,9 @@ if __name__ == '__main__':
     memory = SequentialMemory(limit=35000, window_length=1)
     dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=2000, target_model_update=1e-2,
                    policy=policy)
-    dqn.compile(keras.optimizers.get('adam')(lr=0.001), metrics=['mse'])
-    # Okay, now it's time to learn something! We visualize the training here for show, but this slows down training quite a lot.
+    optimizer = optimizers.Adam(lr=0.001)
+    dqn.compile(optimizer, metrics=['mse'])
 
-    dqn.test(env, nb_episodes=20, visualize=True)
+    # Okay, now it's time to learn something! We visualize the training here for show, but this slows down training
+    # quite a lot.
+    dqn.test(env, nb_episodes=20, visualize=False)
