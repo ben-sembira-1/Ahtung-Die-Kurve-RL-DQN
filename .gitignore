@@ -1,3 +1,4 @@
 .idea/
 keras-rl/
 *.pyc
+venv/
