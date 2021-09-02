@@ -95,7 +95,7 @@ class GameStateMaker(object):
 
     def preprocess_board(self, board, player):
         # new_board = self.cut_board(board, player)
-        new_board = self.cut_board3_speedy(board, self.players[0])
+        new_board = self.cut_board3_speedy(board, player)
 
         # self.add_all_players_to_cutted_board(new_board, ZOOM)
         new_board = self.smear_board_v2(new_board)
@@ -310,10 +310,10 @@ class Player:
 
     def go_on_path(self, game_board, xDestination, yDestination, delta_x, delta_y, check=True):
         # Random gap
-        if self.id == 1:
-            GAP_EPSILON = 0
-        else:
-            GAP_EPSILON = 0.002
+        # if self.id == 1:
+        #     GAP_EPSILON = 0
+        # else:
+        #     GAP_EPSILON = 0.002
         if not self.is_gapping and self.curr_turn - self.turn_last_gap_started > MAKE_GAP_PERIOD:
             if np.random.random() < GAP_EPSILON:
                 self.is_gapping = True
@@ -459,7 +459,7 @@ class AchtungGame:
 
         # print(self.__str__())
         threshold = 0 if NUMBER_OF_PLAYERS == 1 else 1
-        if (len(self.players) <= 0 or self.get_player_by_id(1) is None):
+        if (len(self.players) <= 0):
             game_over = True
         return self.game_board, self.players, game_over
 
@@ -483,8 +483,8 @@ class AchtungGameRunner:
         exp3_json = r'trainedmodel_exp3.json'
         exp3_weights = r'model_weights_exp3.h5'
 
-        exp_rot = r'C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\trainedmodel_exp_rotate.json'
-        exp_rot_weights = r'C:\Users\t8763768\PycharmProjects\Ahtung-Die-Kurve-RL-DQN\model_weights_exp_rotate.h5'
+        exp_rot = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\trainedmodel_exp_rotate.json'
+        exp_rot_weights = r'D:\IDF\smop\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\model_weights_exp_rotate.h5'
         # ------ pygame ------
         pygame.init()
         self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
@@ -515,11 +515,11 @@ class AchtungGameRunner:
         self.net1.load_weights(exp_rot_weights)
         print("Loaded model from disk")
 
-        json_file = open(exp3_json, 'r')
+        json_file = open(exp_rot, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         self.net2 = model_from_json(loaded_model_json)
-        self.net2.load_weights(exp3_weights)
+        self.net2.load_weights(exp_rot_weights)
         print("Loaded model from disk")
         # -------- network --------
         # json_file = open(exp3_json, 'r')
@@ -569,8 +569,8 @@ class AchtungGameRunner:
                 continue
 
             net = self.net1
-            if i != 0:
-                net = self.net2
+            # if i != 0:
+            #     net = self.net2
                 # size = 20
 
             prediction = net.predict(state_maker.get_state(player=player))

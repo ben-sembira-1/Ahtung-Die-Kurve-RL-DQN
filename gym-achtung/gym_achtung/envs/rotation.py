@@ -1,3 +1,6 @@
+import numpy as np
+from scipy import ndimage
+
 def print_mat(mat):
     print()
     for i in range(len(mat)):
@@ -99,3 +102,17 @@ def rotate(matrix, angle):
     #     print("after:")
     #     print_mat(new_mat)
     return new_mat
+
+
+def rotate_with_scipy(matrix, angle):
+    angle_in_deg = 180 - angle * 360 / (2 * np.pi)
+    to_return = ndimage.rotate(matrix, angle_in_deg, reshape=False)
+
+    for i in range(len(to_return)):
+        for j in range(len(to_return[i])):
+            val = to_return[i][j]
+            if -1.5 < val < -0.5:
+                to_return[i][j] = -1
+            else:
+                to_return[i][j] = 0
+    return to_return
