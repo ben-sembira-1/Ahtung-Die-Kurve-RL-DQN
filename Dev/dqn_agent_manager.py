@@ -18,7 +18,7 @@ class DQNAgentManager:
         random.seed(int(time.time()))
         # Todo: This may be redundant
         self.env.seed(int(time.time()))
-        self.model = model_factory((1,) + self.env.observation_space.shape, self.env.action_space.n)
+        self.model = model_factory((1,) + self.env.observation_space.shape, self.env.action_space.n).model
         self.agent = DQNAgent(model=self.model, nb_actions=self.env.action_space.n, memory=memory,
                               nb_steps_warmup=nb_steps_warmup, gamma=gamma,
                               target_model_update=target_model_update, policy=policy)

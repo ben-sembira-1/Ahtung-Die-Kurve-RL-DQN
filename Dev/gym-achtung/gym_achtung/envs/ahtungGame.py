@@ -11,8 +11,8 @@ from scipy import ndimage
 # ------ End Of Imports -----
 
 # ------ Constants ------
-MODEL_FILE = r'F:\Projects\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\trainedmodel_exp_rotate.json'
-MODEL_WEIGHTS_FILE = r'F:\Projects\Achtung Die Kurve\CODE\Ahtung-Die-Kurve-RL-DQN\model_weights_exp_rotate.h5'
+MODEL_FILE = r'F:\Projects\Achtung Die Kurve\Dev\models\Good Models\trainedmodel_exp_rotate.json'
+MODEL_WEIGHTS_FILE = r'F:\Projects\Achtung Die Kurve\Dev\models\Good Models\model_weights_exp_rotate.h5'
 
 class GameStateMaker(object):
     """docstring for GameStateMaker."""

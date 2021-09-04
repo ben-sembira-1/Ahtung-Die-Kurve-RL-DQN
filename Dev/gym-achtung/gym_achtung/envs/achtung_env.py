@@ -73,8 +73,8 @@ class AchtungEnv(gym.Env):
 
         #    -------- network --------
 
-        exp3_model = r'trainedmodel_exp3.json'
-        exp3_weights = r'model_weights_exp3.h5'
+        exp3_model = r'models/trainedmodel_exp3.json'
+        exp3_weights = r'models/model_weights_exp3.h5'
 
         json_file = open(exp3_model, 'r')
         loaded_model_json = json_file.read()
