@@ -1,7 +1,0 @@
-README.md
-setup.py
-gym_achtung.egg-info/PKG-INFO
-gym_achtung.egg-info/SOURCES.txt
-gym_achtung.egg-info/dependency_links.txt
-gym_achtung.egg-info/requires.txt
-gym_achtung.egg-info/top_level.txt

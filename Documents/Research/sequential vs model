@@ -1,0 +1,41 @@
+>>> main_output = Dense(4, activation='relu')(hidden)
+>>> model1 = Model(inputs=[main_input], outputs=[main_output])
+>>> model1.summary()
+Model: "model"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+input_2 (InputLayer)         [(None, 2, 5)]            0
+_________________________________________________________________
+dense_1 (Dense)              (None, 2, 64)             384
+_________________________________________________________________
+dense_2 (Dense)              (None, 2, 4)              260
+=================================================================
+Total params: 644
+Trainable params: 644
+Non-trainable params: 0
+_________________________________________________________________
+>>> model2 = Sequantial()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'Sequantial' is not defined
+>>> model2 = Sequential()
+>>> model2.add(Input(shape=(2, 5)))
+>>> model2.add(Dense(64, activation='relu'))
+>>> model2.add(Dense(4, activation='relu'))
+>>> model2.summary
+<bound method Model.summary of <keras.engine.sequential.Sequential object at 0x000001F180F4D130>>
+>>> model2.summary()
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+dense_3 (Dense)              (None, 2, 64)             384
+_________________________________________________________________
+dense_4 (Dense)              (None, 2, 4)              260
+=================================================================
+Total params: 644
+Trainable params: 644
+Non-trainable params: 0
+_________________________________________________________________
+>>>
