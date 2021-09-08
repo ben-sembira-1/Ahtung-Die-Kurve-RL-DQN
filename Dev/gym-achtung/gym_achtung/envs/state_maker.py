@@ -9,6 +9,7 @@ class GameStateMaker(object):
         super(GameStateMaker, self).__init__()
         self.game = game
         self.players = [self.game.get_player_by_id(id + 1) for id in range(1)]  # TODO: 1 is for number of players
+        self._board_width, self._board_height = self.game.game_board.shape
 
     def get_state(self, show_board=False, player=None):
         if not player:
@@ -75,19 +76,19 @@ class GameStateMaker(object):
         pass
 
     def in_board_range(self, x, y):
-        return 0 <= x < SCREEN_WIDTH and 0 <= y < SCREEN_HEIGHT
+        return 0 <= x < self._board_width and 0 <= y < self._board_height
 
     def add_all_players_to_cutted_board(self, new_board, ZOOM):
         curr_player = self.players[0]
         for p in self.players:
-            if abs(p.x - curr_player.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(p.y - curr_player.y) > SCREEN_HEIGHT // (
+            if abs(p.x - curr_player.x) > self._board_width // (ZOOM * 2) or abs(p.y - curr_player.y) > self._board_height // (
                     ZOOM * 2):
                 continue
             self.draw_circle_on_matrix(new_board,
-                                       SCREEN_WIDTH // (ZOOM * 2) + int(p.x) - int(curr_player.x),
-                                       SCREEN_HEIGHT // (ZOOM * 2) + int(p.y) - int(curr_player.y),
+                                       self._board_width // (ZOOM * 2) + int(p.x) - int(curr_player.x),
+                                       self._board_height // (ZOOM * 2) + int(p.y) - int(curr_player.y),
                                        1)
-        self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
+        self.draw_circle_on_matrix(new_board, self._board_width // (ZOOM * 2), self._board_height // (ZOOM * 2), 2)
 
     def draw_circle_on_matrix(self, new_board, x, y, val):
 
@@ -104,16 +105,16 @@ class GameStateMaker(object):
         2nd gen - fences
         """
         p = player
-        new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
-        for x in range(SCREEN_WIDTH // ZOOM):
-            x_temp = x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)
-            if 0 > x_temp or x_temp > SCREEN_WIDTH:
+        new_board = np.zeros((self._board_width // ZOOM, self._board_height // ZOOM))
+        for x in range(self._board_width // ZOOM):
+            x_temp = x - self._board_width // (ZOOM * 2) + int(p.x)
+            if 0 > x_temp or x_temp > self._board_width:
                 continue
-            for y in range(SCREEN_HEIGHT // ZOOM):
-                y_temp = y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)
-                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+            for y in range(self._board_height // ZOOM):
+                y_temp = y - self._board_height // (ZOOM * 2) + int(p.y)
+                if (0 <= x_temp < self._board_width) and (y_temp == 0 or y_temp == self._board_height):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
-                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+                if (x_temp == 0 or x_temp == self._board_width) and (0 <= y_temp < self._board_height):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
 
                 if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
@@ -123,16 +124,16 @@ class GameStateMaker(object):
 
     def cut_board(self, board, player):
         p = player
-        new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
-        for x in range(SCREEN_WIDTH // ZOOM):
-            x_temp = x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)
-            if 0 > x_temp or x_temp > SCREEN_WIDTH:
+        new_board = np.zeros((self._board_width // ZOOM, self._board_height // ZOOM))
+        for x in range(self._board_width // ZOOM):
+            x_temp = x - self._board_width // (ZOOM * 2) + int(p.x)
+            if 0 > x_temp or x_temp > self._board_width:
                 continue
-            for y in range(SCREEN_HEIGHT // ZOOM):
-                y_temp = y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)
-                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+            for y in range(self._board_height // ZOOM):
+                y_temp = y - self._board_height // (ZOOM * 2) + int(p.y)
+                if (0 <= x_temp < self._board_width) and (y_temp == 0 or y_temp == self._board_height):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
-                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+                if (x_temp == 0 or x_temp == self._board_width) and (0 <= y_temp < self._board_height):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
 
                 if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:

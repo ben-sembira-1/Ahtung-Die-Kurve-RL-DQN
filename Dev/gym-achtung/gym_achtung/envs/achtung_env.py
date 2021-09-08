@@ -31,6 +31,9 @@ class AchtungEnv(gym.Env):
         self.num_of_steps = 0
 
         self.seed()
+
+        self._board_width, self._board_height = self.game.game_board.shape
+
         #    -------- network --------
         exp3_model = r'F:\Projects\Achtung Die Kurve\Dev\models\Good Models\trainedmodel_exp_rotate.json'
         exp3_weights = r'F:\Projects\Achtung Die Kurve\Dev\models\Good Models\model_weights_exp_rotate.h5'
@@ -116,17 +119,17 @@ class AchtungEnv(gym.Env):
         print("----------- End Of Game Board -----------")
 
     def in_board_range(self, x, y):
-        return 0 <= x < SCREEN_WIDTH and 0 <= y < SCREEN_HEIGHT
+        return 0 <= x < self._board_width and 0 <= y < self._board_height
 
     def add_all_players_to_cutted_board(self, new_board, ZOOM):
         curr_player = self.players[0]
         for p in self.players:
-            if abs(p.x - curr_player.x) > SCREEN_WIDTH // (ZOOM * 2) or abs(p.y - curr_player.y) > SCREEN_HEIGHT // (
+            if abs(p.x - curr_player.x) > self._board_width // (ZOOM * 2) or abs(p.y - curr_player.y) > self._board_height // (
                     ZOOM * 2):
                 continue
             self.draw_circle_on_matrix(new_board,
-                                       SCREEN_WIDTH // (ZOOM * 2) + int(p.x) - int(curr_player.x),
-                                       SCREEN_HEIGHT // (ZOOM * 2) + int(p.y) - int(curr_player.y),
+                                       self._board_width // (ZOOM * 2) + int(p.x) - int(curr_player.x),
+                                       self._board_height // (ZOOM * 2) + int(p.y) - int(curr_player.y),
                                        1)
 
     def draw_circle_on_matrix(self, new_board, x, y, val):
@@ -144,15 +147,15 @@ class AchtungEnv(gym.Env):
         1st gen
         """
         p = player
-        new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
-        for x in range(SCREEN_WIDTH // ZOOM):
-            for y in range(SCREEN_HEIGHT // ZOOM):
-                if not self.in_board_range(x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x),
-                                           y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)):
+        new_board = np.zeros((self._board_width // ZOOM, self._board_height // ZOOM))
+        for x in range(self._board_width // ZOOM):
+            for y in range(self._board_height // ZOOM):
+                if not self.in_board_range(x - self._board_width // (ZOOM * 2) + int(p.x),
+                                           y - self._board_height // (ZOOM * 2) + int(p.y)):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
-                elif board[x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)][y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)]:
+                elif board[x - self._board_width // (ZOOM * 2) + int(p.x)][y - self._board_height // (ZOOM * 2) + int(p.y)]:
                     self.draw_circle_on_matrix(new_board, x, y, -1)
-        self.draw_circle_on_matrix(new_board, SCREEN_WIDTH // (ZOOM * 2), SCREEN_HEIGHT // (ZOOM * 2), 2)
+        self.draw_circle_on_matrix(new_board, self._board_width // (ZOOM * 2), self._board_height // (ZOOM * 2), 2)
         return new_board
 
     def cut_board2(self, board, player):
@@ -160,16 +163,16 @@ class AchtungEnv(gym.Env):
         2nd gen - fences
         """
         p = player
-        new_board = np.zeros((SCREEN_WIDTH // ZOOM, SCREEN_HEIGHT // ZOOM))
-        for x in range(SCREEN_WIDTH // ZOOM):
-            x_temp = x - SCREEN_WIDTH // (ZOOM * 2) + int(p.x)
-            if 0 > x_temp or x_temp > SCREEN_WIDTH:
+        new_board = np.zeros((self._board_width // ZOOM, self._board_height // ZOOM))
+        for x in range(self._board_width // ZOOM):
+            x_temp = x - self._board_width // (ZOOM * 2) + int(p.x)
+            if 0 > x_temp or x_temp > self._board_width:
                 continue
-            for y in range(SCREEN_HEIGHT // ZOOM):
-                y_temp = y - SCREEN_HEIGHT // (ZOOM * 2) + int(p.y)
-                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+            for y in range(self._board_height // ZOOM):
+                y_temp = y - self._board_height // (ZOOM * 2) + int(p.y)
+                if (0 <= x_temp < self._board_width) and (y_temp == 0 or y_temp == self._board_height):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
-                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+                if (x_temp == 0 or x_temp == self._board_width) and (0 <= y_temp < self._board_height):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
 
                 if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
@@ -192,16 +195,16 @@ class AchtungEnv(gym.Env):
 
     def cut_board3_first_cut(self, board, player):
         p = player
-        new_board = np.zeros((int(1.5 * SCREEN_WIDTH // ZOOM + 10), int(1.5 * SCREEN_HEIGHT // ZOOM + 10)))
-        for x in range(int(1.5 * SCREEN_WIDTH // ZOOM + 10)):
-            x_temp = x - int(1.5 * SCREEN_WIDTH // (2 * ZOOM) + 10) + int(p.x)
-            if 0 > x_temp or x_temp > SCREEN_WIDTH:
+        new_board = np.zeros((int(1.5 * self._board_width // ZOOM + 10), int(1.5 * self._board_height // ZOOM + 10)))
+        for x in range(int(1.5 * self._board_width // ZOOM + 10)):
+            x_temp = x - int(1.5 * self._board_width // (2 * ZOOM) + 10) + int(p.x)
+            if 0 > x_temp or x_temp > self._board_width:
                 continue
-            for y in range(int(1.5 * SCREEN_HEIGHT // ZOOM + 10)):
-                y_temp = y - int(1.5 * SCREEN_HEIGHT // (ZOOM * 2) + 10) + int(p.y)
-                if (0 <= x_temp < SCREEN_WIDTH) and (y_temp == 0 or y_temp == SCREEN_HEIGHT):
+            for y in range(int(1.5 * self._board_height // ZOOM + 10)):
+                y_temp = y - int(1.5 * self._board_height // (ZOOM * 2) + 10) + int(p.y)
+                if (0 <= x_temp < self._board_width) and (y_temp == 0 or y_temp == self._board_height):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
-                if (x_temp == 0 or x_temp == SCREEN_WIDTH) and (0 <= y_temp < SCREEN_HEIGHT):
+                if (x_temp == 0 or x_temp == self._board_width) and (0 <= y_temp < self._board_height):
                     self.draw_circle_on_matrix(new_board, x, y, -1)
 
                 if self.in_board_range(x_temp, y_temp) and board[x_temp][y_temp]:
@@ -213,13 +216,13 @@ class AchtungEnv(gym.Env):
         3rd gen - rotate
         """
 
-        new_board = self.cut_board3_first_cut(board, player);
-        centered_player = (int((1.5 * SCREEN_WIDTH // ZOOM + 10) // 2), int(1.5 * SCREEN_HEIGHT // ZOOM + 10) // 2)
+        new_board = self.cut_board3_first_cut(board, player)
+        centered_player = (int((1.5 * self._board_width // ZOOM + 10) // 2), int(1.5 * self._board_height // ZOOM + 10) // 2)
         new_board = self.rotate_with_scipy(new_board, player.theta)
         center_X, center_y = len(new_board) // 2, len(new_board[0]) // 2
         new_board = new_board[
-                    center_X - (SCREEN_WIDTH // (2 * ZOOM)): center_X + (SCREEN_WIDTH // (2 * ZOOM)),
-                    center_y - (SCREEN_HEIGHT // (2 * ZOOM)): center_y + (SCREEN_HEIGHT // (2 * ZOOM))
+                    center_X - (self._board_width // (2 * ZOOM)): center_X + (self._board_width // (2 * ZOOM)),
+                    center_y - (self._board_height // (2 * ZOOM)): center_y + (self._board_height // (2 * ZOOM))
                     ]
         return new_board
 

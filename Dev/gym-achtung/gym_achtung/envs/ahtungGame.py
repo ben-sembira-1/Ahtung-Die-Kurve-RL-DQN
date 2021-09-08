@@ -27,14 +27,36 @@ from gym_achtung.envs.player import Player
 
 class AchtungGame:
     num_of_turns = 0
+    SCREEN_WIDTH = 400
+    SCREEN_HEIGHT = 400
 
     def __init__(self, number_of_players=NUMBER_OF_PLAYERS):
-        self.game_board = np.zeros((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.game_board = np.zeros((AchtungGame.SCREEN_WIDTH, AchtungGame.SCREEN_HEIGHT))
         self.players = []
         for i in range(number_of_players):
-            new_player = Player(self.players, i + 1)
-            self.players.append(new_player)
+            self.players.append(Player(i + 1, self._generate_rnd_coor(self.players)))
         self.game_over = False
+
+    def _generate_rnd_coor(self, other_players):
+
+        if other_players == []:
+            new_point = [np.random.randint( int(AchtungGame.SCREEN_WIDTH//4), int(3*AchtungGame.SCREEN_WIDTH//4)), np.random.randint(int(AchtungGame.SCREEN_HEIGHT//4), int(3*AchtungGame.SCREEN_HEIGHT//4))]
+            return new_point
+
+        def check_coordinates(point, other_points):
+            for other_point in other_points:
+                curr_dist = np.linalg.norm([other_point[0] - point[0],other_point[1] - point[1]])
+                if curr_dist < MIN_DIST_BETWEEN_SNAKES_START:
+                    return False
+            return True
+
+        all_coor_taken = [[p.x, p.y] for p in other_players]
+        new_point = [np.random.randint( int(AchtungGame.SCREEN_WIDTH//4), int(3*AchtungGame.SCREEN_WIDTH//4)), np.random.randint(int(AchtungGame.SCREEN_HEIGHT//4), int(3*AchtungGame.SCREEN_HEIGHT//4))]
+
+        while check_coordinates(new_point, all_coor_taken) is not True:
+            new_point = [np.random.randint( int(AchtungGame.SCREEN_WIDTH//4), int(3*AchtungGame.SCREEN_WIDTH//4)), np.random.randint(int(AchtungGame.SCREEN_HEIGHT//4), int(3*AchtungGame.SCREEN_HEIGHT//4))]
+
+        return new_point
 
     def __str__(self):
         str = ""

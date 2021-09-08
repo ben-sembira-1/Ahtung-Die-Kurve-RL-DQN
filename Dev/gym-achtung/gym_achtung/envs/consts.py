@@ -1,6 +1,7 @@
 import numpy as np
 from pygame.locals import K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_d, K_t, K_y, KEYDOWN, QUIT
 
+# Todo: delete
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 400
 

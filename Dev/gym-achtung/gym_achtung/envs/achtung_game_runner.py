@@ -16,7 +16,7 @@ class AchtungGameRunner:
 
         # Pygame init
         pygame.init()
-        self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+        self.screen = pygame.display.set_mode(self.game.game_board.shape)
         self.screen.fill((0, 0, 0))
 
         # Agent init

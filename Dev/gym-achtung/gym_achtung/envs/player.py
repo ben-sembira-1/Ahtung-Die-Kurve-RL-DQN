@@ -4,10 +4,9 @@ from collections import deque
 
 class Player:
 
-    def __init__(self, other_players, player_id):
+    def __init__(self, player_id, coordinates=(0, 0)):
         self.id = player_id
-        # 0 for x, 1 for y
-        self.x, self.y = self._generate_rnd_coor(other_players)
+        self.x, self.y = coordinates
         self.previous_points = deque(maxlen=DEFAULT_MAX_QUEUE_SIZE)
         self.previous_points.append((int(self.x), int(self.y)))
         self.theta = np.random.random() * 2 * np.pi
@@ -16,35 +15,7 @@ class Player:
         self.is_gapping = False
 
     def __str__(self):
-        return "PLAYER: id-{self.id}, position-({self.x}, {self.y}), theta-{self.theta}".format(self = self)
-
-    def get(self, i):
-        if i == 0:
-            return self.x
-        if i == 1:
-            return self.y
-        return None
-
-    def _generate_rnd_coor(self, other_players):
-
-        if other_players == []:
-            new_point = [np.random.randint( int(SCREEN_WIDTH//4), int(3*SCREEN_WIDTH//4)), np.random.randint(int(SCREEN_HEIGHT//4), int(3*SCREEN_HEIGHT//4))]
-            return new_point
-
-        def check_coordinates(point, other_points):
-            for other_point in other_points:
-                curr_dist = np.linalg.norm([other_point[0] - point[0],other_point[1] - point[1]])
-                if curr_dist < MIN_DIST_BETWEEN_SNAKES_START:
-                    return False
-            return True
-
-        all_coor_taken = [[p.x, p.y] for p in other_players]
-        new_point = [np.random.randint( int(SCREEN_WIDTH//4), int(3*SCREEN_WIDTH//4)), np.random.randint(int(SCREEN_HEIGHT//4), int(3*SCREEN_HEIGHT//4))]
-
-        while check_coordinates(new_point, all_coor_taken) is not True:
-            new_point = [np.random.randint( int(SCREEN_WIDTH//4), int(3*SCREEN_WIDTH//4)), np.random.randint(int(SCREEN_HEIGHT//4), int(3*SCREEN_HEIGHT//4))]
-
-        return new_point
+        return f"PLAYER: id-{self.id}, position-({self.x}, {self.y}), theta-{self.theta}"
 
     def go_on_path(self, game_board, xDestination, yDestination, delta_x, delta_y, check=True):
         if not self.is_gapping and self.curr_turn - self.turn_last_gap_started > MAKE_GAP_PERIOD:
@@ -86,16 +57,15 @@ class Player:
             if int(temp_y) == yDestination:
                 y_got_to_place = True
 
-
         return True
 
     def update(self, game_board, theta_change):
         self.curr_turn += 1
         self.theta += theta_change * DELTA_THETA
-        delta_x =  np.cos(self.theta)
+        delta_x = np.cos(self.theta)
         delta_y = np.sin(self.theta)
-        xDestination = int(self.x + SPEED*delta_x)
-        yDestination = int(self.y + SPEED*delta_y)
+        xDestination = int(self.x + SPEED * delta_x)
+        yDestination = int(self.y + SPEED * delta_y)
 
         # checks if destination is in the board
         if not self.in_bounds(xDestination, yDestination):
@@ -103,7 +73,6 @@ class Player:
 
         # checks if path is ok
         if self.go_on_path(game_board, xDestination, yDestination, delta_x, delta_y, check=True):
-
             # This is a good move! goes on path
             self.go_on_path(game_board, xDestination, yDestination, delta_x, delta_y, check=False)
             return True
