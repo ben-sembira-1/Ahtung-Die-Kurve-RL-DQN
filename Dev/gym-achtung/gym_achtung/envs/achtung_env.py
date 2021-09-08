@@ -72,9 +72,8 @@ class AchtungEnv(gym.Env):
         # printing board with plt
 
         #    -------- network --------
-
-        exp3_model = r'models/trainedmodel_exp3.json'
-        exp3_weights = r'models/model_weights_exp3.h5'
+        exp3_model = r'F:\Projects\Achtung Die Kurve\Dev\models\Good Models\trainedmodel_exp_rotate.json'
+        exp3_weights = r'F:\Projects\Achtung Die Kurve\Dev\models\Good Models\model_weights_exp_rotate.h5'
 
         json_file = open(exp3_model, 'r')
         loaded_model_json = json_file.read()
@@ -467,21 +466,4 @@ class AchtungEnv(gym.Env):
         return self.get_state(show_board=SHOW_BOARD)
 
     def render(self, mode='human', close=False):
-        # self.render_game()
-        # if self.num_of_steps%100 == 0:
-        #     plt.subplot(121)
-        #     plt.imshow(self.game.game_board)
-        #     # self.axis[1].imshow(cv2.resize(self.game.game_board, (self.game.game_board.shape[1] // 2,self.game.game_board.shape[0] // 2)))
-        #     plt.subplot(122)
-        #     plt.imshow(cv2.resize(self.game.game_board, (20, 20) ))
-        #     plt.show()
         pass
-
-    def render_game(self):
-        for p in self.game.players:
-            pygame.draw.circle(
-                self.screen,
-                COLORS[p.id],
-                (int(p.previous_points.top()[0]) // 4, int(p.previous_points.top()[1]) // 4),
-                CIRCLE_SIZE
-            )
